@@ -19,10 +19,13 @@ public class Civil
     private Date dateNaissance;
     private Date dateDeces;
     private String nationalite;
+    private Adresse adresse;
+    private String email;
+    private String mdp;
 
     //------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
-    public Civil(String id, String prenom, String civilite, Date dateNaissance, Date dateDeces, String nationalite)
+    public Civil(String id, String prenom, String civilite, Date dateNaissance, Date dateDeces, String nationalite, Adresse adresse, String email, String mdp)
     {
         this.id = id;
         this.prenom = prenom;
@@ -30,6 +33,9 @@ public class Civil
         this.dateNaissance = dateNaissance;
         this.dateDeces = dateDeces;
         this.nationalite = nationalite;
+        this.adresse = adresse;
+        this.email = email;
+        this.mdp = mdp;
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -72,5 +78,15 @@ public class Civil
     public String getNationalite()
     {
         return nationalite;
+    }
+
+    public Adresse getAdresse() { return  adresse; }
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

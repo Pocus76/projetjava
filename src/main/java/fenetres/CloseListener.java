@@ -1,18 +1,19 @@
-import fenetres.Authentification;
-import mysqlUtil.SqlConnexion;
-
+package fenetres;
 //----------------------------------------------------------------------------------------------------------------------
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * @author :
  * @dateCreation :
  * @description :
  */
 //----------------------------------------------------------------------------------------------------------------------
-public class TestConnexion
+public class CloseListener implements ActionListener
 {
-    public static void main(String[] args)
+    public void actionPerformed(ActionEvent e)
     {
-        SqlConnexion connexion = new SqlConnexion();
-        new Authentification();
+        System.exit(0);
     }
 }

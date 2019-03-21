@@ -19,10 +19,11 @@ public class Civil
     private Date dateNaissance;
     private Date dateDeces;
     private String nationalite;
+    private Adresse adresse;
 
     //------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
-    public Civil(String id, String prenom, String civilite, Date dateNaissance, Date dateDeces, String nationalite)
+    public Civil(String id, String prenom, String civilite, Date dateNaissance, Date dateDeces, String nationalite, Adresse adresse)
     {
         this.id = id;
         this.prenom = prenom;
@@ -30,6 +31,7 @@ public class Civil
         this.dateNaissance = dateNaissance;
         this.dateDeces = dateDeces;
         this.nationalite = nationalite;
+        this.adresse = adresse;
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -73,4 +75,6 @@ public class Civil
     {
         return nationalite;
     }
+
+    public Adresse getAdresse() { return  adresse; }
 }

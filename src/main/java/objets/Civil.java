@@ -24,7 +24,12 @@ public class Civil
     //------------------------------------------------------------------------------------------------------------------
     public Civil(String id, String prenom, String civilite, Date dateNaissance, Date dateDeces, String nationalite)
     {
-
+        this.id = id;
+        this.prenom = prenom;
+        this.civilite = civilite;
+        this.dateNaissance = dateNaissance;
+        this.dateDeces = dateDeces;
+        this.nationalite = nationalite;
     }
 
     //------------------------------------------------------------------------------------------------------------------

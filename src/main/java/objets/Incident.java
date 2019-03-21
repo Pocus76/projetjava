@@ -1,5 +1,7 @@
 package objets;
 
+import java.util.Date;
+
 public class Incident
 {
     private int incident_id;

@@ -1,14 +1,21 @@
 package objets;
 
 public class Planete {
-    private int planete_id;
-    private String libelle;
+    private String nom;
+    private int id;
 
-    public int getPlanete_id() {
-        return planete_id;
+    public Planete(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
     }
 
-    public String getLibelle() {
-        return libelle;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
     }
 }

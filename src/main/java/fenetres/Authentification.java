@@ -1,9 +1,15 @@
 package fenetres;
 
+import mysqlUtil.SqlConnexion;
+import util.LogUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 //----------------------------------------------------------------------------------------------------------------------
 /**
@@ -80,11 +86,39 @@ public class Authentification extends JFrame
 
             if (!sLogin.equals("")&&sMdp.length!=0)
             {
-
+                this.login(sLogin, sMdp);
             }
             else
             {
                 JOptionPane.showMessageDialog(new JFrame(),"Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------
+        private void login(String login, char[] mdp)
+        {
+            try
+            {
+                if (login != null && mdp != null)
+                {
+                    Statement statement = SqlConnexion.connection.createStatement();
+                    String sql = "select * from users_table where username='"+login+"' and password='"+String.valueOf(mdp)+"'";
+                    ResultSet rs = statement.executeQuery(sql);
+                    if (rs.next())
+                    {
+                        // --- TODO : Gérer la connexion réussie
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(new JFrame(),"Identifiant ou mot de passe incorrect", "Erreur d'authentification", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+            catch (SQLException err)
+            {
+                LogUtils.logErreur(this.getClass().getSimpleName(), err.getMessage());
+                JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

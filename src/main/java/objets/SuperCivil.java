@@ -41,6 +41,18 @@ public class SuperCivil {
         this.isSuperHeros = isSuperHeros;
     }
 
+    public SuperCivil(Personne personne, String nom, String pouvoir, String faiblesse, Float score, String commentaire, Boolean isSuperHeros)
+    {
+        this.superCivil_id = superCivil_id;
+        this.personne = personne;
+        this.nom = nom;
+        this.pouvoir = pouvoir;
+        this.faiblesse = faiblesse;
+        this.score = score;
+        this.commentaire = commentaire;
+        this.isSuperHeros = isSuperHeros;
+    }
+
     public BigInteger getSuperCivil_id() {
         return superCivil_id;
     }

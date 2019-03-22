@@ -41,6 +41,27 @@ public class Personne {
         this.isCivil = isCivil;
     }
 
+    public Personne(Administratif administratif, String prenom, String nom, Date dateNaissance, String nationalite, String login, String mdp, Date creation_date, Date modification_date, Boolean isCivil)
+    {
+        this.administratif = administratif;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.dateNaissance = dateNaissance;
+        this.nationalite = nationalite;
+        this.login = login;
+        this.mdp = mdp;
+        this.creation_date = creation_date;
+        this.modification_date = modification_date;
+        this.isCivil = isCivil;
+    }
+
+    public Personne(int id, String prenom, String nom)
+    {
+        this.personne_id = BigInteger.valueOf(id);
+        this.prenom = prenom;
+        this.nom = nom;
+    }
+
     public BigInteger getPersonne_id() {
         return personne_id;
     }

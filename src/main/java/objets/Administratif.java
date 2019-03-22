@@ -39,6 +39,17 @@ public class Administratif {
         this.email = email;
     }
 
+    public Administratif(String adresse, String cp, String ville, String pays, String planete, String email, String telephone)
+    {
+        this.adresse = adresse;
+        this.cp = cp;
+        this.ville = ville;
+        this.pays = pays;
+        this.planete = planete;
+        this.telephone = telephone;
+        this.email = email;
+    }
+
     public BigInteger getAdministratif_id() { return administratif_id; }
 
     public String getAdresse() {

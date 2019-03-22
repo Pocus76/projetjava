@@ -10,7 +10,7 @@ public class Incident
     private String incident_ville;
     private String incident_pays;
     private String incident_cp;
-
+    private Boolean sans_suite;
 
     public Incident()
     {
@@ -18,7 +18,7 @@ public class Incident
     }
 
     public Incident(int incident_id, Date incident_date, String incident_adresse,
-                    String incident_ville, String incident_pays, String incident_cp)
+                    String incident_ville, String incident_pays, String incident_cp, Boolean sans_suite)
     {
         this.incident_id = incident_id;
         this.incident_date = incident_date;
@@ -26,6 +26,7 @@ public class Incident
         this.incident_ville = incident_ville;
         this.incident_pays = incident_pays;
         this.incident_cp = incident_cp;
+        this.sans_suite = sans_suite;
     }
 
     public int getIncident_id() {
@@ -51,4 +52,6 @@ public class Incident
     public String getIncident_cp() {
         return incident_cp;
     }
+
+    public Boolean getSans_suite() {return sans_suite;}
 }

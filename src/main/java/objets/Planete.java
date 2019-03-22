@@ -1,6 +1,7 @@
 package objets;
 
 public class Planete {
+
     private String nom;
     private int id;
 
@@ -18,7 +19,4 @@ public class Planete {
     public String getNom() {
         return nom;
     }
-
-
-
 }

@@ -18,7 +18,4 @@ public class Planete {
     public String getNom() {
         return nom;
     }
-
-
-
 }

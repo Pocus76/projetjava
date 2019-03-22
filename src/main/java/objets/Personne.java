@@ -55,6 +55,13 @@ public class Personne {
         this.isCivil = isCivil;
     }
 
+    public Personne(int id, String prenom, String nom)
+    {
+        this.personne_id = BigInteger.valueOf(id);
+        this.prenom = prenom;
+        this.nom = nom;
+    }
+
     public BigInteger getPersonne_id() {
         return personne_id;
     }

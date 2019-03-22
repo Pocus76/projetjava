@@ -324,7 +324,8 @@ public class Inscription extends JFrame
 
                 if (ajoutePersonneDansBDD(personne))
                 {
-                    JOptionPane.showMessageDialog(Inscription.this,"Inscription réussie", "Intégration OK", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(Inscription.this,"Vous pouvez à présent vous connecter avec vos identifiants", "Inscription réussie", JOptionPane.INFORMATION_MESSAGE);
+                    Inscription.this.dispatchEvent(new WindowEvent(Inscription.this, WindowEvent.WINDOW_CLOSING));
                 }
                 else
                 {

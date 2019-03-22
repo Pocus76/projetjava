@@ -63,7 +63,7 @@ public class Authentification extends JFrame
         contenu.add(mdp1);
         mdp1.setBounds(150, 75, 150, 20);
 
-        valider = new JButton("Valider ");
+        valider = new JButton("Valider");
         contenu.add(valider);
         valider.setBounds(20,110 ,80 ,20 );
         valider.addActionListener(new ValiderListener());

@@ -2,6 +2,7 @@ package fenetres;
 
 import mysqlUtil.SqlConnexion;
 import util.LogUtils;
+import util.PasswordUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,7 +73,7 @@ public class Authentification extends JFrame
         inscription.setBounds(110,110 ,100 ,20 );
         inscription.addActionListener(new InscriptionListener());
 
-        annuler = new JButton(" Fermer");
+        annuler = new JButton("Fermer");
         contenu.add(annuler);
         annuler.setBounds(220, 110, 85, 20);
         annuler.addActionListener(new CloseListener());
@@ -93,9 +94,11 @@ public class Authentification extends JFrame
 
             if (!sLogin.equals("")&&sMdp.length!=0)
             {
-                if (this.login(sLogin, sMdp))
+                // --- On encrypte le mot de passe
+                String encrypteMdp = PasswordUtils.generateSecurePassword(new String(sMdp));
+                if (this.login(sLogin, encrypteMdp))
                 {
-                    // --- TODO : Gérer la connexion réussie
+                    JOptionPane.showMessageDialog(new JFrame(),"Connexion réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
                     Authentification.this.dispatchEvent(new WindowEvent(Authentification.this, WindowEvent.WINDOW_CLOSING));
                 }
             }
@@ -107,7 +110,7 @@ public class Authentification extends JFrame
 
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
-        private boolean login(String login, char[] mdp)
+        private boolean login(String login, String mdp)
         {
             boolean connexionReussie = false;
             try
@@ -115,7 +118,7 @@ public class Authentification extends JFrame
                 if (login != null && mdp != null)
                 {
                     Statement statement = SqlConnexion.connection.createStatement();
-                    String sql = "select * from users_table where username='"+login+"' and password='"+String.valueOf(mdp)+"'";
+                    String sql = "select * from personnes where login='"+login+"' and mdp='"+mdp+"'";
                     ResultSet rs = statement.executeQuery(sql);
                     if (rs.next())
                     {
@@ -146,8 +149,7 @@ public class Authentification extends JFrame
         //--------------------------------------------------------------------------------------------------------------
         public void actionPerformed(ActionEvent e)
         {
-            // --- TODO : Gerer l'inscription
-            JOptionPane.showMessageDialog(new JFrame(),"Pas encore géré", "TODO", JOptionPane.INFORMATION_MESSAGE);
+            new Inscription();
         }
     }
 }

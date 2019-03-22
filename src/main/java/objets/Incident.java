@@ -1,57 +1,55 @@
 package objets;
 
+import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 public class Incident
 {
-    private int incident_id;
-    private Date incident_date;
-    private String incident_adresse;
-    private String incident_ville;
-    private String incident_pays;
-    private String incident_cp;
+    private BigInteger incident_id;
+    private Personne personne;
+    private Administratif administratif;
+    private List<SuperCivil> villains;
+    private String commentaire;
+    private Date creation_date;
     private Boolean sans_suite;
 
-    public Incident()
-    {
-
-    }
-
-    public Incident(int incident_id, Date incident_date, String incident_adresse,
-                    String incident_ville, String incident_pays, String incident_cp, Boolean sans_suite)
+    public Incident(BigInteger incident_id, Personne personne, Administratif administratif, List<SuperCivil> villains, String commentaire, Date creation_date, Boolean sans_suite)
     {
         this.incident_id = incident_id;
-        this.incident_date = incident_date;
-        this.incident_adresse = incident_adresse;
-        this.incident_ville = incident_ville;
-        this.incident_pays = incident_pays;
-        this.incident_cp = incident_cp;
+        this.personne = personne;
+        this.administratif = administratif;
+        this.villains = villains;
+        this.commentaire = commentaire;
+        this.creation_date = creation_date;
         this.sans_suite = sans_suite;
     }
 
-    public int getIncident_id() {
+    public BigInteger getIncident_id() {
         return incident_id;
     }
 
-    public Date getIncident_date() {
-        return incident_date;
+    public Personne getPersonne() {
+        return personne;
     }
 
-    public String getIncident_adresse() {
-        return incident_adresse;
+    public Administratif getAdministratif() {
+        return administratif;
     }
 
-    public String getIncident_ville() {
-        return incident_ville;
+    public String getCommentaire() {
+        return commentaire;
     }
 
-    public String getIncident_pays() {
-        return incident_pays;
+    public Date getCreation_date() {
+        return creation_date;
     }
 
-    public String getIncident_cp() {
-        return incident_cp;
+    public Boolean getSans_suite() {
+        return sans_suite;
     }
 
-    public Boolean getSans_suite() {return sans_suite;}
+    public List<SuperCivil> getVillains() {
+        return villains;
+    }
 }

@@ -1,17 +1,19 @@
 package objets;
 
-public class Planete {
-    private String nom;
-    private int id;
+import java.math.BigInteger;
 
-    public Planete(int id, String nom) {
+public class Planete {
+    private BigInteger id;
+    private String nom;
+
+    public Planete(BigInteger id, String nom) {
         this.id = id;
         this.nom = nom;
     }
 
 
 
-    public int getId() {
+    public BigInteger getId() {
         return id;
     }
 

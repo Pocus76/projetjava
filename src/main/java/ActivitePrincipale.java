@@ -1,11 +1,13 @@
 import fenetres.Authentification;
+import fenetres.DescriptifMission;
+import fenetres.Missions;
 import mysqlUtil.SqlConnexion;
 
 //----------------------------------------------------------------------------------------------------------------------
 /**
- * @author :
- * @dateCreation :
- * @description :
+ * @author : robin
+ * @dateCreation : 22 Mars
+ * @description : Choix des missions
  */
 //----------------------------------------------------------------------------------------------------------------------
 public class ActivitePrincipale
@@ -14,7 +16,9 @@ public class ActivitePrincipale
     //------------------------------------------------------------------------------------------------------------------
     public static void main(String[] args)
     {
-        SqlConnexion connexion = new SqlConnexion();
-        new Authentification();
+        //SqlConnexion connexion = new SqlConnexion();
+        //new Authentification();
+        new Missions();
+        new DescriptifMission();
     }
 }

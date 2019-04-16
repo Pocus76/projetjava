@@ -41,6 +41,13 @@ public class Personne {
         this.isCivil = isCivil;
     }
 
+    public Personne (BigInteger personne_id, String nom, String prenom, Boolean isCivil) {
+        this.personne_id = personne_id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.isCivil = isCivil;
+    }
+
     public Personne(Administratif administratif, String prenom, String nom, Date dateNaissance, String nationalite, String login, String mdp, Date creation_date, Date modification_date, Boolean isCivil)
     {
         this.administratif = administratif;

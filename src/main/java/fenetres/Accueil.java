@@ -38,7 +38,7 @@ public class Accueil extends JFrame{
 
         SuperCivil = new JButton("SuperCivil");
         contenu.add(SuperCivil);
-        SuperCivil.setBounds(20,110 ,80 ,20 );
+        SuperCivil.setBounds(110,110 ,80 ,20 );
         SuperCivil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,7 +46,7 @@ public class Accueil extends JFrame{
             }
         });
 
-
+        this.setVisible(true);
     }
 }
 

@@ -101,7 +101,7 @@ public class Authentification extends JFrame
                 {
                     JOptionPane.showMessageDialog(new JFrame(),"Connexion réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
                     Authentification.this.dispatchEvent(new WindowEvent(Authentification.this, WindowEvent.WINDOW_CLOSING));
-                    new Incident();
+                    new Accueil();
                 }
             }
             else

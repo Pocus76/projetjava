@@ -1,6 +1,7 @@
 package fenetres;
 
 import mysqlUtil.SqlConnexion;
+import util.CloseListener;
 import util.LogUtils;
 import util.PasswordUtils;
 
@@ -100,6 +101,7 @@ public class Authentification extends JFrame
                 {
                     JOptionPane.showMessageDialog(new JFrame(),"Connexion réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
                     Authentification.this.dispatchEvent(new WindowEvent(Authentification.this, WindowEvent.WINDOW_CLOSING));
+                    new Incident();
                 }
             }
             else

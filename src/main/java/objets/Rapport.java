@@ -3,7 +3,8 @@ package objets;
 import java.math.BigInteger;
 import java.util.List;
 
-public class Rapport {
+public class Rapport
+{
     private BigInteger rapport_id;
     private Mission mission;
     private List<Crise> crises;
@@ -12,7 +13,8 @@ public class Rapport {
     private String description;
     private Boolean succes;
 
-    public Rapport(BigInteger rapport_id, Mission mission, List<Crise> crises, Personne avenger, Personne personne, String description, Boolean succes) {
+    public Rapport(BigInteger rapport_id, Mission mission, List<Crise> crises, Personne avenger, Personne personne, String description, Boolean succes)
+    {
         this.rapport_id = rapport_id;
         this.mission = mission;
         this.crises = crises;

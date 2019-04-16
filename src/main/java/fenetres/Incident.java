@@ -154,12 +154,18 @@ public class Incident extends JFrame {
         this.setVisible(true);
     }
 
-    private Boolean checkFormulaire() {
+    private Boolean checkFormulaire()
+    {
         boolean isFormValid =  true;
-        if (fieldCommentaire.getText().equals("")) {
+        if (fieldCommentaire.getText().equals(""))
+        {
             JOptionPane.showMessageDialog(Incident.this, "Vous devez saisir un commentaire", "Erreur", JOptionPane.ERROR_MESSAGE);
-        } else if (fieldCp.getText().equals("") || fieldVille.getText().equals("") ||fieldPays.getText().equals("")) {
+            isFormValid = false;
+        }
+        else if (fieldCp.getText().equals("") || fieldVille.getText().equals("") ||fieldPays.getText().equals(""))
+        {
             JOptionPane.showMessageDialog(Incident.this, "Adresse incomplète", "Erreur", JOptionPane.ERROR_MESSAGE);
+            isFormValid = false;
         }
         return isFormValid;
     }

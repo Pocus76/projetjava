@@ -84,4 +84,9 @@ public class SuperCivil {
     public Boolean getSuperHeros() {
         return isSuperHeros;
     }
+
+    @Override
+    public String toString() {
+        return nom;
+    }
 }

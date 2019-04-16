@@ -46,7 +46,17 @@ public class Accueil extends JFrame{
             }
         });
 
+        rapport = new JButton("Rapport");
+        contenu.add(rapport);
+        rapport.setBounds(200,110 ,80 ,20 );
+        rapport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //new Rapport();
+            }
+        });
         this.setVisible(true);
+
     }
 }
 

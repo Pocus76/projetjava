@@ -1,88 +1,131 @@
 package objets;
 
+import mysqlUtil.SqlConnexion;
+import util.LogUtils;
+
+import javax.swing.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
+import java.util.List;
 
 public class Mission {
 
-    private int id;
-    private int rapport_id;
-    private int satisfaction_id;
-    private int litige_id;
-    private int incident_id;
-    private String titre;
+    private BigInteger mission_id;
+    private Incident incident;
+    private List<SuperCivil> heros;
     private String nature;
-    private Date date_debut;
-    private Date date_fin;
-    private String commentaire;
-    private int gravite;
-    private int urgence;
+    private String titre;
+    private String description;
+    private Date dateDebut;
+    private Date dateFin;
+    private Integer gravite;
+    private Integer urgence;
 
-    public Mission(int id, int rapport_id,
-                   int satisfaction_id, int litige_id,
-                   int incident_id, String titre,
-                   String nature, Date date_debut,
-                   Date date_fin, String commentaire,
-                   int gravite, int urgence)
+    public Mission(BigInteger mission_id, Incident incident, List<SuperCivil> heros,
+                   String nature, String titre,
+                   String description, Date dateDebut,
+                   Date dateFin, int gravite, int urgence)
     {
-        this.id = id;
-        this.rapport_id = rapport_id;
-        this.satisfaction_id = satisfaction_id;
-        this.litige_id = litige_id;
-        this.incident_id = incident_id;
-        this.titre = titre;
+        this.mission_id = mission_id;
+        this.incident = incident;
+        this.heros = heros;
         this.nature = nature;
-        this.date_debut = date_debut;
-        this.date_fin = date_fin;
-        this.commentaire = commentaire;
+        this.titre = titre;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.gravite = gravite;
         this.urgence = urgence;
     }
 
-    public int getId() {
-        return id;
+    public Mission(Incident incident, List<SuperCivil> heros,
+                   String nature, String titre,
+                   String description, Date dateDebut,
+                   Date dateFin, int gravite, int urgence)
+    {
+        this.mission_id = mission_id;
+        this.incident = incident;
+        this.heros = heros;
+        this.nature = nature;
+        this.titre = titre;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.gravite = gravite;
+        this.urgence = urgence;
     }
 
-    public int getRapport_id() {
-        return rapport_id;
+    public BigInteger getMission_id() {
+        return mission_id;
     }
 
-    public int getSatisfaction_id() {
-        return satisfaction_id;
+    public Incident getIncident() {
+        return incident;
     }
 
-    public int getLitige_id() {
-        return litige_id;
-    }
-
-    public int getIncident_id() {
-        return incident_id;
-    }
-
-    public String getTitre() {
-        return titre;
+    public List<SuperCivil> getHeros() {
+        return heros;
     }
 
     public String getNature() {
         return nature;
     }
 
-    public Date getDate_debut() {
-        return date_debut;
+    public String getTitre() {
+        return titre;
     }
 
-    public Date getDate_fin() {
-        return date_fin;
+    public String getDescription() {
+        return description;
     }
 
-    public String getCommentaire() {
-        return commentaire;
+    public Date getDateDebut() {
+        return dateDebut;
     }
 
-    public int getGravite() {
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public Integer getGravite() {
         return gravite;
     }
 
-    public int getUrgence() {
+    public Integer getUrgence() {
         return urgence;
+    }
+
+    public Boolean insertIntoDatabase()
+    {
+        boolean inserted = false;
+
+        String query = "INSERT INTO missions (INCIDENT_ID, NATURE, TITRE, DESCRIPTION, DATE_DEBUT, DATE_FIN, GRAVITE, URGENCE) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = SqlConnexion.connection.prepareStatement(query);
+            stmt.setBigDecimal(1, new BigDecimal(incident.getIncident_id()));
+            stmt.setString(2, nature);
+            stmt.setString(3, titre);
+            stmt.setString(4, description);
+            stmt.setDate(5, new java.sql.Date(dateDebut.getTime()));
+            stmt.setDate(6, new java.sql.Date(dateFin.getTime()));
+            stmt.setInt(7, gravite);
+            stmt.setInt(8, urgence);
+            stmt.execute();
+            inserted = true;
+        }
+        catch (SQLException e)
+        {
+            LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
+            JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return inserted;
     }
 }

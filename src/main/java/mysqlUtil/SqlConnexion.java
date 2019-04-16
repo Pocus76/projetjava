@@ -16,7 +16,7 @@ public class SqlConnexion
     private String url = "jdbc:mysql://localhost:3306/avenger_bdd?serverTimezone="+TimeZone.getDefault().getID();
     private String user = "root";
     private String pwd = "";
-    private Connection connection;
+    public static Connection connection;
     private boolean connected;
 
     //------------------------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ public class SqlConnexion
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            this.connection = DriverManager.getConnection(url ,user,pwd);
+            SqlConnexion.connection = DriverManager.getConnection(url ,user,pwd);
             connected = true;
         }
         catch (Exception e)

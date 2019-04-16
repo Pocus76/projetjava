@@ -130,7 +130,7 @@ public class Mission extends JFrame
         contenu.add(fieldComplements);
         fieldComplements.setBounds(110, 195, 250, 20);
 
-        heros = new JLabel("<html>Super vilains * <br />CTRL ou Shift <br />pour en sélectionner plusieurs</html>");
+        heros = new JLabel("<html>Super héros * <br />CTRL ou Shift <br />pour en sélectionner plusieurs</html>");
         contenu.add(heros);
         heros.setBounds(20, 220, 100, 100);
 

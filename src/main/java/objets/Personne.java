@@ -1,6 +1,13 @@
 package objets;
 
+import mysqlUtil.SqlConnexion;
+import util.LogUtils;
+
+import javax.swing.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +76,18 @@ public class Personne {
         this.nom = nom;
     }
 
+    public Personne(BigInteger id, String nom, String prenom, String nationalite, int nbIncidentsDeclares, int nbIncidentsLies, Date creation_date, boolean isCivil, String commentaire) {
+        this.personne_id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.nationalite = nationalite;
+        this.nbIncidentsLies = nbIncidentsLies;
+        this.nbIncidentsDeclares = nbIncidentsDeclares;
+        this.commentaire = commentaire;
+        this.creation_date = creation_date;
+        this.isCivil = isCivil;
+    }
+
     public BigInteger getPersonne_id() {
         return personne_id;
     }
@@ -131,5 +150,22 @@ public class Personne {
 
     public Boolean getCivil() {
         return isCivil;
+    }
+
+    public Boolean supprimer() {
+        Boolean supprime = false;
+        String query = "DELETE FROM PERSONNES WHERE PERSONNE_ID = ?;";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = SqlConnexion.connection.prepareStatement(query);
+            stmt.setBigDecimal(1, new BigDecimal(personne_id));
+            stmt.execute();
+            supprime = true;
+        } catch (SQLException e) {
+            LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
+            JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return supprime;
     }
 }

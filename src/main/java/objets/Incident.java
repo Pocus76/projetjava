@@ -11,11 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Incident
-{
+public class Incident {
     private BigInteger incident_id;
     private Personne personne;
     private Administratif administratif;
@@ -33,8 +33,7 @@ public class Incident
         this.sans_suite = false;
     }
 
-    public Incident(BigInteger incident_id, Personne personne, Administratif administratif, List<SuperCivil> vilains, String commentaire, Date creation_date, Boolean sans_suite)
-    {
+    public Incident(BigInteger incident_id, Personne personne, Administratif administratif, List<SuperCivil> vilains, String commentaire, Date creation_date, Boolean sans_suite) {
         this.incident_id = incident_id;
         this.personne = personne;
         this.administratif = administratif;
@@ -111,5 +110,46 @@ public class Incident
         }
 
         return inserted;
+    }
+
+    public void setSans_suite() {
+        String query = "UPDATE INCIDENTS SET SANS_SUITE = 1 WHERE INCIDENT_ID = ?;";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = SqlConnexion.connection.prepareStatement(query);
+            stmt.setBigDecimal(1, new BigDecimal(incident_id));
+            stmt.execute();
+        } catch (SQLException e) {
+            LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
+            JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public ArrayList<SuperCivil> getSuperVilains() {
+        ArrayList<SuperCivil> superVilains = new ArrayList<SuperCivil>();
+        String query = "SELECT SP.SUPER_CIVIL_ID, SP.NOM, SP.POUVOIR, SP.FAIBLESSE, SP.SCORE, SP.COMMENTAIRE FROM SUPERS_CIVILS SP INNER JOIN INCIDENTS_VILLAINS IV ON (SP.SUPER_CIVIL_ID = IV.SUPER_CIVIL_ID) WHERE ((SP.IS_SUPER_HEROS IS FALSE) AND (IV.INCIDENT_ID = ?));";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = SqlConnexion.connection.prepareStatement(query);
+            stmt.setBigDecimal(1, new BigDecimal(incident_id));
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                BigInteger superCivil_id = BigInteger.valueOf(rs.getInt("SUPER_CIVIL_ID"));
+                String nom = rs.getString("NOM");
+                String pouvoir = rs.getString("POUVOIR");
+                String faiblesse = rs.getString("FAIBLESSE");
+                Float score = rs.getFloat("SCORE");
+                String commentaire = rs.getString("COMMENTAIRE");
+                superVilains.add(new SuperCivil(superCivil_id, nom, pouvoir, faiblesse, score, commentaire, false));
+            }
+
+        } catch (SQLException e) {
+            LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
+            JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return superVilains;
     }
 }

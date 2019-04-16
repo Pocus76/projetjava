@@ -28,6 +28,15 @@ public class Administratif {
         this.planete = planete;
     }
 
+    public Administratif(BigInteger administratif_id, String adresse, String cp, String ville, String pays, String planete) {
+        this.administratif_id = administratif_id;
+        this.adresse = adresse;
+        this.cp = cp;
+        this.ville = ville;
+        this.pays = pays;
+        this.planete = planete;
+    }
+
     public Administratif(BigInteger administratif_id, String adresse, String cp, String ville, String pays, String planete, String email, String telephone) {
         this.administratif_id = administratif_id;
         this.adresse = adresse;

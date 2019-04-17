@@ -1,7 +1,9 @@
 package fenetres;
 
+import mysqlUtil.Requetes;
 import mysqlUtil.SqlConnexion;
 import objets.Administratif;
+import objets.Personne;
 import objets.SuperCivil;
 import util.AutoSuggestor;
 import util.LogUtils;
@@ -11,6 +13,7 @@ import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,11 +31,11 @@ import java.util.ArrayList;
 public class AjouteVilain extends JFrame
 {
     private JLabel nom, personne, pouvoir, faiblesse, score, commentaire, isSuperHeros;
-    private JTextField nom1, personne1, pouvoir1, faiblesse1, score1;
+    private JTextField nom1, pouvoir1, faiblesse1, score1;
+    private JComboBox personne1;
     private JTextArea commentaire1;
     private JCheckBox isSuperHeros1;
     private JButton valider, annuler;
-    private ArrayList<String> arrayListPersonnes = getPersonnes();
 
     public AjouteVilain()
     {
@@ -43,7 +46,7 @@ public class AjouteVilain extends JFrame
         this.setUndecorated(true);
 
         Container contenu = this.getContentPane();
-        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(153, 86, 0)));
+        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(0, 58, 153)));
         contenu.setBackground(Color.white);
         contenu.setLayout(null);
 
@@ -64,10 +67,11 @@ public class AjouteVilain extends JFrame
         contenu.add(personne);
         personne.setBounds(20, 70, 100, 20);
 
-        personne1 = new JTextField();
+        ArrayList<objets.Personne> personnes = Requetes.getPersonnes();
+        personne1 = new JComboBox<>(personnes.toArray());
         contenu.add(personne1);
         personne1.setBounds(150, 70, 150, 20);
-        AutoSuggestor.setupAutoComplete(personne1, arrayListPersonnes);
+        personne1.setSelectedIndex(-1);
 
         pouvoir = new JLabel("Pouvoir");
         contenu.add(pouvoir);
@@ -133,30 +137,6 @@ public class AjouteVilain extends JFrame
 
     //------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
-    private static ArrayList<String> getPersonnes()
-    {
-        ArrayList<String> listePersonnes = new ArrayList<>();
-        try
-        {
-            Statement stm = SqlConnexion.connection.createStatement();
-            String sql = "select PRENOM, NOM from personnes";
-            ResultSet rst;
-            rst = stm.executeQuery(sql);
-            while (rst.next())
-            {
-                String personne = rst.getString("PRENOM")+" "+rst.getString("NOM");
-                listePersonnes.add(personne);
-            }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return listePersonnes;
-    }
-
-    //------------------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
     public class ValidationListener implements ActionListener {
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
@@ -164,7 +144,7 @@ public class AjouteVilain extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             String nom = nom1.getText();
-            String personne = personne1.getText();
+            Personne personne = (Personne) personne1.getSelectedItem();
             String pouvoir = pouvoir1.getText();
             String faiblesse = faiblesse1.getText();
             String score = score1.getText();
@@ -176,16 +156,12 @@ public class AjouteVilain extends JFrame
             {
                 JOptionPane.showMessageDialog(AjouteVilain.this, "Veuillez renseigner un nom", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-            else if (!personne.equals("") && checkPersonneExiste(personne) == -1)
-            {
-                JOptionPane.showMessageDialog(AjouteVilain.this, "Veuillez renseigner une personne existante", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
             else
             {
                 int idPersonne = -1;
-                if (!personne.equals(""))
+                if (personne!=null)
                 {
-                    idPersonne = checkPersonneExiste(personne);
+                    idPersonne = personne.getPersonne_id().intValue();
                 }
                 if (ajouteSuperCivil(nom, idPersonne, pouvoir, faiblesse, fScore, commentaire, isSuperHeros))
                 {
@@ -234,27 +210,6 @@ public class AjouteVilain extends JFrame
             }
             return ajoutOk;
         }
-    }
-
-    private int checkPersonneExiste(String personne)
-    {
-        int idPersonne = -1;
-        try
-        {
-            Statement statement = SqlConnexion.connection.createStatement();
-            String sql = "select PERSONNE_ID from personnes where concat(PRENOM, ' ', NOM)='"+personne+"'";
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next())
-            {
-                idPersonne = rs.getInt("PERSONNE_ID");
-            }
-        }
-        catch (SQLException err)
-        {
-            LogUtils.logErreur(this.getClass().getSimpleName(), err.getMessage());
-            JOptionPane.showMessageDialog(AjouteVilain.this,"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        return idPersonne;
     }
 
     //------------------------------------------------------------------------------------------------------------------

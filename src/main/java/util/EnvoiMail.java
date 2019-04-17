@@ -12,9 +12,9 @@ import java.util.Properties;
 
 //----------------------------------------------------------------------------------------------------------------------
 /**
- * @author :
- * @dateCreation :
- * @description :
+ * @author : Pocus
+ * @dateCreation : 17/04/2019
+ * @description : Classe qui permet d'envoyer un mail
  */
 //----------------------------------------------------------------------------------------------------------------------
 public class EnvoiMail

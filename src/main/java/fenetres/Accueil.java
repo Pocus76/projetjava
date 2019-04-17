@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.awt.geom.RoundRectangle2D;
 
 public class Accueil extends JFrame{
     private JButton compte;
@@ -29,10 +30,12 @@ public class Accueil extends JFrame{
         this.setResizable(false);
         this.setUndecorated(true);
 
-        Autorisation autorisation = Requetes.getAutorisation(Constants.utilisateurConnecte.getPersonne_id());
-
         Container contenu = this.getContentPane();
+        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(0, 58, 153)));
+        contenu.setBackground(Color.white);
         contenu.setLayout(null);
+
+        Autorisation autorisation = Requetes.getAutorisation(Constants.utilisateurConnecte.getPersonne_id());
 
         incident = new JButton("Nouvel incident");
         contenu.add(incident);

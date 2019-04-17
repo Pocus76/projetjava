@@ -96,6 +96,7 @@ public class Mission extends JFrame
 
         fieldDateFin = new JTextField();
         contenu.add(fieldDateFin);
+        fieldDateFin.setEnabled(false);
         fieldDateFin.setBounds(110, 95, 250, 20);
 
         itineraire = new JLabel("Itinéraire *");
@@ -177,7 +178,7 @@ public class Mission extends JFrame
                 {
                     return;
                 }
-                objets.Mission mission = new objets.Mission(incident, listHeros.getSelectedValuesList(), fieldNaturesMission.getText(), fieldTitre.getText(), fieldComplements.getText(), DateUtil.toDate(fieldDateDebut.getText()), DateUtil.toDate(fieldDateFin.getText()),Integer.parseInt(((Item) listeGravites.getSelectedItem()).getId()), AvengersToolkit.boolToInt(checkUrgence.isSelected()));
+                objets.Mission mission = new objets.Mission(incident, listHeros.getSelectedValuesList(), fieldNaturesMission.getText(), fieldTitre.getText(), fieldComplements.getText(), DateUtil.toDate(fieldDateDebut.getText()), Integer.parseInt(((Item) listeGravites.getSelectedItem()).getId()), AvengersToolkit.boolToInt(checkUrgence.isSelected()));
                 mission.insertIntoDatabase();
             }
         });

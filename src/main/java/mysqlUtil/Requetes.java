@@ -2,6 +2,7 @@ package mysqlUtil;
 
 import objets.Autorisation;
 import util.LogUtils;
+import util.Regex;
 
 import javax.swing.*;
 import java.math.BigInteger;
@@ -9,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 //----------------------------------------------------------------------------------------------------------------------
 /**
@@ -80,5 +82,30 @@ public class Requetes
             JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
         return autorisations;
+    }
+
+    public static List<String> getAdressesMail()
+    {
+        List<String> listeMails = new ArrayList<>();
+        try
+        {
+            Statement statement = SqlConnexion.connection.createStatement();
+            String query = "select EMAIL from administratifs";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next())
+            {
+                if (rs.getString("EMAIL").matches(Regex.EMAIL_PATTERN))
+                {
+                    listeMails.add(rs.getString("EMAIL"));
+                }
+            }
+            rs.close();
+        }
+        catch (SQLException err)
+        {
+            LogUtils.logErreur("Requetes", err.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return listeMails;
     }
 }

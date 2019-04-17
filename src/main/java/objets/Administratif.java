@@ -96,8 +96,9 @@ public class Administratif {
             stmt.setString(2, cp);
             stmt.setString(3, ville);
             stmt.setString(4, planete);
-            stmt.setString(5, telephone);
-            stmt.setString(6, email);
+            stmt.setString(5, pays);
+            stmt.setString(6, telephone);
+            stmt.setString(7, email);
             stmt.execute();
 
             Statement stmtId = SqlConnexion.connection.createStatement();

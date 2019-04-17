@@ -226,8 +226,7 @@ public class Personne {
     }
 
     @Override
-    public String toString()
-    {
-        return nom+" "+prenom;
+    public String toString() {
+        return prenom + " " + nom;
     }
 }

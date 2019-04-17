@@ -33,6 +33,11 @@ public class Crise
         this.personnes = personnes;
     }
 
+    public Crise(BigInteger crise_id, String description) {
+        this.crise_id = crise_id;
+        this.description = description;
+    }
+
     public BigInteger getCrise_id() {
         return crise_id;
     }
@@ -91,5 +96,10 @@ public class Crise
             JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
         return insertionOk;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }

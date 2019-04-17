@@ -43,6 +43,10 @@ public class Incident {
         this.sans_suite = sans_suite;
     }
 
+    public Incident(BigInteger incident_id) {
+        this.incident_id = incident_id;
+    }
+
     public BigInteger getIncident_id() {
         return incident_id;
     }

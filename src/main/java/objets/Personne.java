@@ -210,4 +210,18 @@ public class Personne {
         }
         return supprime;
     }
+
+    public void declarerDecedee() {
+        String query = "UPDATE PERSONNES SET DATE_DECES = CURRENT_DATE WHERE PERSONNE_ID = ?;";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = SqlConnexion.connection.prepareStatement(query);
+            stmt.setBigDecimal(1, new BigDecimal(personne_id));
+            stmt.execute();
+        } catch (SQLException e) {
+            LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
+            JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

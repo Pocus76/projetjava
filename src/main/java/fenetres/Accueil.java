@@ -19,7 +19,7 @@ public class Accueil extends JFrame{
 
         super();
         this.setTitle("The S.H.I.E.L.D.");
-        this.setSize(new Dimension(700,200));
+        this.setSize(new Dimension(900,200));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setUndecorated(true);
@@ -64,6 +64,16 @@ public class Accueil extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new GrilleIncidents();
+            }
+        });
+
+        JButton listePersonnes = new JButton("Liste des personnes");
+        contenu.add(listePersonnes);
+        listePersonnes.setBounds(640, 110, 150, 20);
+        listePersonnes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GrillePersonnes();
             }
         });
 

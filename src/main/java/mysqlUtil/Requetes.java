@@ -98,7 +98,7 @@ public class Requetes
             ResultSet rs = statement.executeQuery(query);
             while (rs.next())
             {
-                if (rs.getString("EMAIL").matches(Regex.EMAIL_PATTERN))
+                if (rs.getString("EMAIL")!=null && rs.getString("EMAIL").matches(Regex.EMAIL_PATTERN))
                 {
                     listeMails.add(rs.getString("EMAIL"));
                 }

@@ -17,12 +17,13 @@ public class Accueil extends JFrame{
     private JButton mission;
     private JButton rapport;
     private JButton grilleIncidents;
+    private JButton btnCrise;
 
     public Accueil(){
 
         super();
         this.setTitle("The S.H.I.E.L.D.");
-        this.setSize(new Dimension(1000,200));
+        this.setSize(new Dimension(1150,200));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setUndecorated(true);
@@ -90,6 +91,16 @@ public class Accueil extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new GrilleMissions();
+            }
+        });
+
+        btnCrise = new JButton("Déclarer une crise");
+        contenu.add(btnCrise);
+        btnCrise.setBounds(960,110 ,150 ,20 );
+        btnCrise.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeclarerCrise();
             }
         });
 

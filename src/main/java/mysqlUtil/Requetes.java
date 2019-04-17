@@ -1,6 +1,8 @@
 package mysqlUtil;
 
 import objets.Autorisation;
+import objets.Mission;
+import objets.Personne;
 import util.LogUtils;
 import util.Regex;
 
@@ -84,6 +86,8 @@ public class Requetes
         return autorisations;
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     public static List<String> getAdressesMail()
     {
         List<String> listeMails = new ArrayList<>();
@@ -107,5 +111,53 @@ public class Requetes
             JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
         return listeMails;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    public static ArrayList<Mission> getMissions()
+    {
+        ArrayList<Mission> listeMissions = new ArrayList<>();
+        try
+        {
+            Statement statement = SqlConnexion.connection.createStatement();
+            String query = "select * from missions";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next())
+            {
+                listeMissions.add(new Mission(BigInteger.valueOf(rs.getInt("MISSION_ID")), rs.getString("TITRE"), rs.getString("DESCRIPTION"), rs.getDate("DATE_DEBUT")));
+            }
+            rs.close();
+        }
+        catch (SQLException err)
+        {
+            LogUtils.logErreur("Requetes", err.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return listeMissions;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    public static ArrayList<Personne> getPersonnes()
+    {
+        ArrayList<Personne> listePersonnes = new ArrayList<>();
+        try
+        {
+            Statement statement = SqlConnexion.connection.createStatement();
+            String query = "select * from personnes";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next())
+            {
+                listePersonnes.add(new Personne(BigInteger.valueOf(rs.getInt("PERSONNE_ID")), rs.getString("NOM"), rs.getString("PRENOM"), rs.getBoolean("IS_CIVIL")));
+            }
+            rs.close();
+        }
+        catch (SQLException err)
+        {
+            LogUtils.logErreur("Requetes", err.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return listePersonnes;
     }
 }

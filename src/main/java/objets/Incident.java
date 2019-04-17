@@ -78,7 +78,7 @@ public class Incident {
     public Boolean insertIntoDatabase() {
         boolean inserted = false;
 
-        String query = "INSERT INTO INCIDENTS (ADMINISTRATIF_ID, PERSONNE_ID, COMMENTAIRE, CREATAION_DATE, SANS_SUITE) VALUES (?, ?, ?, ?, ?);";
+        String query = "INSERT INTO INCIDENTS (ADMINISTRATIF_ID, PERSONNE_ID, COMMENTAIRE, CREATION_DATE, SANS_SUITE) VALUES (?, ?, ?, ?, ?);";
         PreparedStatement stmt = null;
 
         try {
@@ -99,7 +99,7 @@ public class Incident {
             if (vilains.size() > 0) {
                 for (int i = 0; i < vilains.size(); i++) {
                     SuperCivil vilain = vilains.get(i);
-                    String queryVilains = "INSERT INTO INCIDENTS_VILAINS (INCIDENT_ID, SUPER_CIVIL_ID) VALUES (?, ?);";
+                    String queryVilains = "INSERT INTO INCIDENTS_VILLAINS (INCIDENT_ID, SUPER_CIVIL_ID) VALUES (?, ?);";
                     PreparedStatement stmt2 = SqlConnexion.connection.prepareStatement(queryVilains);
                     stmt2.setBigDecimal(1, new BigDecimal(administratif.getAdministratif_id()));
                     stmt2.setBigDecimal(2, new BigDecimal(vilain.getSuperCivil_id()));

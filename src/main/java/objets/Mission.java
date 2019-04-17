@@ -42,6 +42,15 @@ public class Mission {
         this.urgence = urgence;
     }
 
+    public Mission(BigInteger mission_id, String titre,
+                   String description, Date dateDebut)
+    {
+        this.mission_id = mission_id;
+        this.titre = titre;
+        this.description = description;
+        this.dateDebut = dateDebut;
+    }
+
     public Mission(Incident incident, List<SuperCivil> heros,
                    String nature, String titre,
                    String description, Date dateDebut,
@@ -130,7 +139,8 @@ public class Mission {
         return urgence;
     }
 
-    public Boolean insertIntoDatabase() {
+    public Boolean insertIntoDatabase()
+    {
         boolean inserted = false;
 
         String query = "INSERT INTO missions (INCIDENT_ID, NATURE, TITRE, DESCRIPTION, DATE_DEBUT, GRAVITE, URGENCE) VALUES (?, ?, ?, ?, ?, ?, ?);";

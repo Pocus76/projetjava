@@ -85,6 +85,11 @@ public class Mission {
         this.urgence = urgence;
     }
 
+    public Mission (BigInteger mission_id, String titre) {
+        this.mission_id = mission_id;
+        this.titre = titre;
+    }
+
     public BigInteger getMission_id() {
         return mission_id;
     }
@@ -148,5 +153,10 @@ public class Mission {
         }
 
         return inserted;
+    }
+
+    @Override
+    public String toString() {
+        return titre;
     }
 }

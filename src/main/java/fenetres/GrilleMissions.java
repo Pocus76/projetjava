@@ -89,11 +89,7 @@ public class GrilleMissions extends JFrame {
                     terminer.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            Object[] options = {"OUI", "NON"};
-                            int n = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir déclarer cette personne comme décédée", "Confimation", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-                            /*if (n == 0) {
-                                personne.declarerDecedee();
-                            }*/
+                            new Rapport();
                         }
                     });
                 } else {

@@ -59,7 +59,6 @@ public class GereAutorisations extends JFrame
                break;
             }
         }
-        System.out.println(index);
         listAutorisations.setSelectedIndex(index);
 
         valider = new JButton("Valider");

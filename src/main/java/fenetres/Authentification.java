@@ -1,7 +1,9 @@
 package fenetres;
 
 import mysqlUtil.SqlConnexion;
+import objets.Personne;
 import util.CloseListener;
+import util.Constants;
 import util.LogUtils;
 import util.PasswordUtils;
 
@@ -10,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -79,6 +82,8 @@ public class Authentification extends JFrame
         annuler.setBounds(220, 110, 85, 20);
         annuler.addActionListener(new CloseListener());
 
+        this.getRootPane().setDefaultButton(valider);
+
         this.setVisible(true);
     }
 
@@ -124,6 +129,7 @@ public class Authentification extends JFrame
                     ResultSet rs = statement.executeQuery(sql);
                     if (rs.next())
                     {
+                        Constants.utilisateurConnecte = new Personne(BigInteger.valueOf(rs.getInt("PERSONNE_ID")), rs.getString("NOM"), rs.getString("PRENOM"), rs.getBoolean("IS_CIVIL"));
                         connexionReussie = true;
                     }
                     else

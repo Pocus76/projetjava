@@ -1,11 +1,19 @@
 package objets;
 
 import mysqlUtil.SqlConnexion;
+import util.Constants;
+import util.LogUtils;
+
+import javax.swing.*;
+import mysqlUtil.SqlConnexion;
 import util.LogUtils;
 
 import javax.swing.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
@@ -150,6 +158,43 @@ public class Personne {
 
     public Boolean getCivil() {
         return isCivil;
+    }
+
+    public Autorisation getAutorisation()
+    {
+        Autorisation autorisation = null;
+        try
+        {
+            if (login != null && mdp != null)
+            {
+                Statement statement = SqlConnexion.connection.createStatement();
+                String sql = "select * from autorisations_personnes where PERSONNE_ID='"+personne_id+"'";
+                ResultSet rs = statement.executeQuery(sql);
+                if (rs.next())
+                {
+                    String query = "select * from autorisations where AUTORISATION_ID='"+rs.getInt("AUTORISATION_ID")+"'";
+                    ResultSet rs2 = statement.executeQuery(query);
+                    if (rs.next())
+                    {
+                        autorisation = new Autorisation(rs2.getInt("AUTORISATION_ID"), rs2.getString("LIBELLE"));
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur de communication", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur de communication", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        catch (SQLException err)
+        {
+            LogUtils.logErreur(this.getClass().getSimpleName(), err.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return autorisation;
     }
 
     public Boolean supprimer() {

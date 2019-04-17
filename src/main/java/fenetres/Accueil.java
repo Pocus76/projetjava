@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 public class Accueil extends JFrame{
     private JButton compte;
@@ -83,13 +84,24 @@ public class Accueil extends JFrame{
         });
 
         JButton listeMissions = new JButton("Liste des missions");
-        if (autorisation.getAutorisation_id() < 2) contenu.add(listePersonnes);
-        contenu.add(listeMissions);
+        if (autorisation.getAutorisation_id() < 2) contenu.add(listeMissions);
         listeMissions.setBounds(800, 110, 150, 20);
         listeMissions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new GrilleMissions();
+            }
+        });
+
+        JButton deconnexion = new JButton("Deconnexion");
+        contenu.add(deconnexion);
+        deconnexion.setBounds(400, 150, 150, 20);
+        deconnexion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Constants.utilisateurConnecte = null;
+                Accueil.this.dispatchEvent(new WindowEvent(Accueil.this, WindowEvent.WINDOW_CLOSING));
+                new Authentification();
             }
         });
 

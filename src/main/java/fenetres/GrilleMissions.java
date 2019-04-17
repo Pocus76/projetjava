@@ -24,7 +24,7 @@ import java.util.Date;
 
 public class GrilleMissions extends JFrame {
     ArrayList<Mission> missions = new ArrayList<Mission>();
-    private int nbColumns = 9;
+    private int nbColumns = 8;
     private ArrayList<JLabel> headers = new ArrayList<JLabel>();
     private SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
 
@@ -73,17 +73,6 @@ public class GrilleMissions extends JFrame {
                 c.gridy = i + 1;
 
                 if (j == 7) {
-                    JButton voirIncident = new JButton("X");
-                    panel.add(voirIncident, c);
-                    voirIncident.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            // TODO
-                            //new GereAutorisations(personne.getPersonne_id());
-                            //GrillePersonnes.this.dispatchEvent(new WindowEvent(GrillePersonnes.this, WindowEvent.WINDOW_CLOSING));
-                        }
-                    });
-                } else if (j == 8) {
                     JButton terminer = new JButton("X");
                     panel.add(terminer, c);
                     terminer.addActionListener(new ActionListener() {
@@ -139,7 +128,6 @@ public class GrilleMissions extends JFrame {
         headers.add(new JLabel("Date fin"));
         headers.add(new JLabel("Gravité"));
         headers.add(new JLabel("Urgence"));
-        headers.add(new JLabel("Voir l'incident lié"));
         headers.add(new JLabel("Terminer la mission"));
     }
 
@@ -177,7 +165,6 @@ public class GrilleMissions extends JFrame {
             case 6:
                 return 50;
             case 7:
-            case 8:
                 return 10;
 
         }

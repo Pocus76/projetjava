@@ -8,6 +8,7 @@ import util.PasswordUtils;
 import util.Regex;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,16 +23,18 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //----------------------------------------------------------------------------------------------------------------------
+
 /**
  * @author : Pocus
  * @dateCreation : 22/03/2019
  * @description : Classe pour la fenêtre d'inscription
  */
 //----------------------------------------------------------------------------------------------------------------------
-public class Inscription extends JFrame
-{
+public class Inscription extends JFrame {
     private JLabel prenom;
     private JTextField prenom1;
     private JLabel nom;
@@ -64,12 +67,12 @@ public class Inscription extends JFrame
     private JTextField email1;
 
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
     //------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
-    public Inscription()
-    {
+    public Inscription() {
         super();
-        this.setSize(new Dimension(320,550));
+        this.setSize(new Dimension(320, 550));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setUndecorated(true);
@@ -205,7 +208,7 @@ public class Inscription extends JFrame
         jScrollPane.add(telephone);
         telephone.setBounds(20, 460, 100, 20);
 
-        telephone1 = new JFormattedTextField(formatter);
+        telephone1 = new JTextField();
         jScrollPane.add(telephone1);
         telephone1.setBounds(150, 460, 150, 20);
 
@@ -219,7 +222,7 @@ public class Inscription extends JFrame
 
         valider = new JButton("Valider");
         jScrollPane.add(valider);
-        valider.setBounds(110,520 ,100 ,20 );
+        valider.setBounds(110, 520, 100, 20);
         valider.addActionListener(new Inscription.ValidationListener());
 
         annuler = new JButton("Annuler");
@@ -238,12 +241,10 @@ public class Inscription extends JFrame
 
     //------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
-    public class ValidationListener implements ActionListener
-    {
+    public class ValidationListener implements ActionListener {
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
-        public void actionPerformed(ActionEvent e)
-        {
+        public void actionPerformed(ActionEvent e) {
             String prenom = prenom1.getText();
             String nom = nom1.getText();
             String sDateNaissance = dateNaissance1.getText();
@@ -260,58 +261,39 @@ public class Inscription extends JFrame
             String telephone = telephone1.getText();
             String email = email1.getText();
             boolean identifiantExisteDeja = false;
-            try
-            {
+            Pattern pattern = Pattern.compile("^\\d{10}$");
+            Matcher matcher = pattern.matcher(telephone);
+            try {
                 Statement statement = SqlConnexion.connection.createStatement();
-                String sql = "select * from personnes where login='"+login+"'";
+                String sql = "select * from personnes where login='" + login + "'";
                 ResultSet rs = statement.executeQuery(sql);
                 identifiantExisteDeja = rs.next();
-            }
-            catch (SQLException e1)
-            {
+            } catch (SQLException e1) {
                 LogUtils.logErreur(Inscription.this.getName(), e1.getMessage());
             }
-            if (prenom.equals(""))
-            {
-                JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner votre prénom", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (nom.equals(""))
-            {
-                JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner votre nom", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (sDateNaissance.equals(""))
-            {
-                JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner une date de naissance correcte", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (nationalite.equals(""))
-            {
-                JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner votre nationalité", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (login.equals(""))
-            {
-                JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner votre identifiant", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (identifiantExisteDeja)
-            {
-                JOptionPane.showMessageDialog(Inscription.this,"Cet identifiant existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (new String(mdp).equals("")||new String(mdp).length()<8)
-            {
-                JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner un mot de passe valide", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (email.length()==0||!email.matches(Regex.EMAIL_PATTERN))
-            {
-                JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner un email valide", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-            else
-            {
+            if (prenom.equals("")) {
+                JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner votre prénom", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else if (nom.equals("")) {
+                JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner votre nom", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else if (sDateNaissance.equals("")) {
+                JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner une date de naissance correcte", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else if (nationalite.equals("")) {
+                JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner votre nationalité", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else if (login.equals("")) {
+                JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner votre identifiant", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else if (identifiantExisteDeja) {
+                JOptionPane.showMessageDialog(Inscription.this, "Cet identifiant existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else if (new String(mdp).equals("") || new String(mdp).length() < 8) {
+                JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner un mot de passe valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else if (email.length() == 0 || !email.matches(Regex.EMAIL_PATTERN)) {
+                JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner un email valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else if (!matcher.matches()) {
+                JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner un téléphone valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else {
                 Administratif adrPersonne = new Administratif(adresse, cp, ville, pays, planete, email, telephone);
-                try
-                {
+                try {
                     dateNaissance = df.parse(dateNaissance1.getText());
-                }
-                catch (ParseException e1)
-                {
+                } catch (ParseException e1) {
                     LogUtils.logErreur(this.getClass().getSimpleName(), e1.getMessage());
                 }
 
@@ -320,22 +302,18 @@ public class Inscription extends JFrame
 
                 Personne personne = new Personne(adrPersonne, prenom, nom, dateNaissance, nationalite, login, new String(encrypteMdp), new Date(), new Date(), isCivil);
 
-                if (ajoutePersonneDansBDD(personne))
-                {
-                    JOptionPane.showMessageDialog(Inscription.this,"Vous pouvez à présent vous connecter avec vos identifiants", "Inscription réussie", JOptionPane.INFORMATION_MESSAGE);
+                if (ajoutePersonneDansBDD(personne)) {
+                    JOptionPane.showMessageDialog(Inscription.this, "Vous pouvez à présent vous connecter avec vos identifiants", "Inscription réussie", JOptionPane.INFORMATION_MESSAGE);
                     Inscription.this.dispatchEvent(new WindowEvent(Inscription.this, WindowEvent.WINDOW_CLOSING));
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(Inscription.this,"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(Inscription.this, "Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
 
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
-        private boolean ajoutePersonneDansBDD(Personne personne)
-        {
+        private boolean ajoutePersonneDansBDD(Personne personne) {
             boolean inscriptionOk = false;
             int idAdministratif;
             String query = " insert into administratifs (RUE, CP, VILLE, PAYS, PLANETE, TELEPHONE, EMAIL)"
@@ -343,8 +321,7 @@ public class Inscription extends JFrame
 
             // create the mysql insert preparedstatement
             PreparedStatement preparedStmt = null;
-            try
-            {
+            try {
                 Administratif administratif = personne.getAdministratif();
                 preparedStmt = SqlConnexion.connection.prepareStatement(query);
                 preparedStmt.setString(1, administratif.getAdresse());
@@ -398,12 +375,10 @@ public class Inscription extends JFrame
                 preparedStmt3.execute();
 
                 inscriptionOk = true;
-            }
-            catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 inscriptionOk = false;
                 LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
-                JOptionPane.showMessageDialog(Inscription.this,"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(Inscription.this, "Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
             return inscriptionOk;
         }
@@ -411,12 +386,10 @@ public class Inscription extends JFrame
 
     //------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
-    public class AnnulationListener implements ActionListener
-    {
+    public class AnnulationListener implements ActionListener {
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
-        public void actionPerformed(ActionEvent e)
-        {
+        public void actionPerformed(ActionEvent e) {
             Inscription.this.dispatchEvent(new WindowEvent(Inscription.this, WindowEvent.WINDOW_CLOSING));
         }
     }

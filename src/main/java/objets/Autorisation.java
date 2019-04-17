@@ -6,10 +6,7 @@ import util.LogUtils;
 import javax.swing.*;
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 public class Autorisation {
 

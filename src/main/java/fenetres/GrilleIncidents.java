@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,9 +35,22 @@ public class GrilleIncidents extends JFrame {
         Container contenu = this.getContentPane();
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(153, 86, 10, 10)));
         contenu.setBackground(Color.white);
-        contenu.setLayout(new GridBagLayout());
+        contenu.setLayout(new BorderLayout());
+        JPanel panel = new JPanel();
+        GridBagLayout layout = new GridBagLayout();
+        panel.setLayout(layout);
         GridBagConstraints c = new GridBagConstraints();
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
+        JPanel bbar = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton retour = new JButton("Retour");
+        bbar.add(retour);
+        retour.setBounds(400 , 300, 100, 20);
+        retour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GrilleIncidents.this.dispatchEvent(new WindowEvent(GrilleIncidents.this, WindowEvent.WINDOW_CLOSING));
+            }
+        });
 
         c.gridx = gridx;
         c.gridy = gridy;
@@ -46,7 +60,7 @@ public class GrilleIncidents extends JFrame {
         c.anchor = GridBagConstraints.CENTER;
         c.weightx = 40;
 
-        contenu.add(new JLabel("Commentaire"), c);
+        panel.add(new JLabel("Commentaire"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -54,7 +68,7 @@ public class GrilleIncidents extends JFrame {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 5;
-        contenu.add(new JLabel("CP"), c);
+        panel.add(new JLabel("CP"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -62,7 +76,7 @@ public class GrilleIncidents extends JFrame {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 10;
-        contenu.add(new JLabel("Ville"), c);
+        panel.add(new JLabel("Ville"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -70,7 +84,7 @@ public class GrilleIncidents extends JFrame {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 10;
-        contenu.add(new JLabel("Pays"), c);
+        panel.add(new JLabel("Pays"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -78,7 +92,7 @@ public class GrilleIncidents extends JFrame {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 10;
-        contenu.add(new JLabel("Nom / Prénom Contact"), c);
+        panel.add(new JLabel("Nom / Prénom Contact"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -86,7 +100,7 @@ public class GrilleIncidents extends JFrame {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 10;
-        contenu.add(new JLabel("Date"), c);
+        panel.add(new JLabel("Date"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -94,7 +108,7 @@ public class GrilleIncidents extends JFrame {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 10;
-        contenu.add(new JLabel("Sans suite"), c);
+        panel.add(new JLabel("Sans suite"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -103,7 +117,7 @@ public class GrilleIncidents extends JFrame {
         c.gridheight = 1;
         c.weightx = 10;
 
-        contenu.add(new JLabel("Voir les super vilains associés"), c);
+        panel.add(new JLabel("Voir les super vilains associés"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -111,7 +125,7 @@ public class GrilleIncidents extends JFrame {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 10;
-        contenu.add(new JLabel("Déclarer sans suite"), c);
+        panel.add(new JLabel("Déclarer sans suite"), c);
         gridx += 1;
 
         c.gridx = gridx;
@@ -119,7 +133,7 @@ public class GrilleIncidents extends JFrame {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 10;
-        contenu.add(new JLabel("Partir en mission"), c);
+        panel.add(new JLabel("Partir en mission"), c);
 
         gridx = 0;
         gridy = 1;
@@ -134,42 +148,42 @@ public class GrilleIncidents extends JFrame {
             Incident incident = incidents.get(i);
             Administratif administratif = incident.getAdministratif();
             Personne personne = incident.getPersonne();
-            contenu.add(new JLabel(incident.getCommentaire()), c);
+            panel.add(new JLabel(incident.getCommentaire()), c);
             gridx += 1;
             c.gridx = gridx;
             c.gridy = gridy;
             c.gridwidth = 1;
             c.gridheight = 1;
             c.weightx = 5;
-            contenu.add(new JLabel(administratif.getCp()), c);
+            panel.add(new JLabel(administratif.getCp()), c);
             gridx += 1;
             c.gridx = gridx;
             c.gridy = gridy;
             c.gridwidth = 1;
             c.gridheight = 1;
             c.weightx = 10;
-            contenu.add(new JLabel(administratif.getVille()), c);
+            panel.add(new JLabel(administratif.getVille()), c);
             gridx += 1;
             c.gridx = gridx;
             c.gridy = gridy;
             c.gridwidth = 1;
             c.gridheight = 1;
             c.weightx = 10;
-            contenu.add(new JLabel(administratif.getPays()), c);
+            panel.add(new JLabel(administratif.getPays()), c);
             gridx += 1;
             c.gridx = gridx;
             c.gridy = gridy;
             c.gridwidth = 1;
             c.gridheight = 1;
             c.weightx = 10;
-            contenu.add(new JLabel(personne.getNom() + " " + personne.getPrenom()), c);
+            panel.add(new JLabel(personne.getNom() + " " + personne.getPrenom()), c);
             gridx += 1;
             c.gridx = gridx;
             c.gridy = gridy;
             c.gridwidth = 1;
             c.gridheight = 1;
             c.weightx = 10;
-            contenu.add(new JLabel(formater.format(incident.getCreation_date())), c);
+            panel.add(new JLabel(formater.format(incident.getCreation_date())), c);
             gridx += 1;
             c.gridx = gridx;
             c.gridy = gridy;
@@ -177,7 +191,7 @@ public class GrilleIncidents extends JFrame {
             c.gridheight = 1;
             c.weightx = 10;
             JLabel labelSansSuite = new JLabel(incident.getSans_suite() ? "Sans suite" : "En cours");
-            contenu.add(labelSansSuite, c);
+            panel.add(labelSansSuite, c);
             gridx += 1;
 
             c.gridx = gridx;
@@ -186,7 +200,7 @@ public class GrilleIncidents extends JFrame {
             c.gridheight = 1;
             c.weightx = 10;
             JButton voirVillains = new JButton("X");
-            contenu.add(voirVillains, c);
+            panel.add(voirVillains, c);
             voirVillains.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -201,7 +215,7 @@ public class GrilleIncidents extends JFrame {
             c.gridheight = 1;
             c.weightx = 10;
             JButton sansSuite = new JButton("X");
-            contenu.add(sansSuite, c);
+            panel.add(sansSuite, c);
             sansSuite.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -218,7 +232,7 @@ public class GrilleIncidents extends JFrame {
             c.gridheight = 1;
             c.weightx = 10;
             JButton mission = new JButton("X");
-            contenu.add(mission, c);
+            panel.add(mission, c);
             mission.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -237,6 +251,8 @@ public class GrilleIncidents extends JFrame {
             c.weightx = 10;
         }
 
+        contenu.add(panel, BorderLayout.PAGE_START);
+        contenu.add(bbar, BorderLayout.SOUTH);
         this.setVisible(true);
     }
 

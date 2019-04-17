@@ -382,6 +382,21 @@ public class Inscription extends JFrame
                 // execute the preparedstatement
                 preparedStmt2.execute();
 
+                Statement statement2 = SqlConnexion.connection.createStatement();
+                String sql2 = "select LAST_INSERT_ID() as PERSONNE_ID";
+                ResultSet rs2 = statement2.executeQuery(sql2);
+                rs2.next();
+                int idPersonne = rs2.getInt("PERSONNE_ID");
+
+                String query3 = "insert into autorisations_personnes (AUTORISATION_ID, PERSONNE_ID)"
+                        + "values (?, ?)";
+
+                PreparedStatement preparedStmt3 = SqlConnexion.connection.prepareStatement(query3);
+                preparedStmt3.setInt(1, 4);
+                preparedStmt3.setInt(2, idPersonne);
+                // execute the preparedstatement
+                preparedStmt3.execute();
+
                 inscriptionOk = true;
             }
             catch (SQLException e)

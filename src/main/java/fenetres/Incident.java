@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 
 public class Incident extends JFrame {
-    private JLabel superVilains, commentaire, adresse, cp, ville, pays, planete, vilains;
+    private JLabel commentaire, adresse, cp, ville, pays, planete, vilains;
     private JTextArea fieldCommentaire;
     private JTextField fieldAdresse, fieldCp, fieldVille, fieldPays, fieldPlanete;
     private JList<SuperCivil> listVilains;

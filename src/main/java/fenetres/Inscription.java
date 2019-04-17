@@ -209,7 +209,7 @@ public class Inscription extends JFrame
         jScrollPane.add(telephone1);
         telephone1.setBounds(150, 460, 150, 20);
 
-        email = new JLabel("Email");
+        email = new JLabel("Email *");
         jScrollPane.add(email);
         email.setBounds(20, 490, 100, 20);
 
@@ -299,13 +299,13 @@ public class Inscription extends JFrame
             {
                 JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner un mot de passe valide", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-            else if (email.length()!=0&&!email.matches(Regex.EMAIL_PATTERN))
+            else if (email.length()==0||!email.matches(Regex.EMAIL_PATTERN))
             {
                 JOptionPane.showMessageDialog(Inscription.this,"Veuillez renseigner un email valide", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
             else
             {
-                Administratif adrPersonne = new Administratif(adresse, cp, ville, pays, planete, telephone, email);
+                Administratif adrPersonne = new Administratif(adresse, cp, ville, pays, planete, email, telephone);
                 try
                 {
                     dateNaissance = df.parse(dateNaissance1.getText());

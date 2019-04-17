@@ -1,6 +1,9 @@
 package fenetres;
 
+import mysqlUtil.Requetes;
+import objets.Autorisation;
 import objets.SuperCivil;
+import util.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,14 +18,16 @@ public class Accueil extends JFrame{
     private JButton rapport;
     private JButton grilleIncidents;
 
-    public Accueil(){
-
+    public Accueil()
+    {
         super();
         this.setTitle("The S.H.I.E.L.D.");
         this.setSize(new Dimension(900,200));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setUndecorated(true);
+
+        Autorisation autorisation = Requetes.getAutorisation(Constants.utilisateurConnecte.getPersonne_id());
 
         Container contenu = this.getContentPane();
         contenu.setLayout(null);
@@ -38,7 +43,7 @@ public class Accueil extends JFrame{
         });
 
         SuperCivil = new JButton("Ajouter un super civil");
-        contenu.add(SuperCivil);
+        if (autorisation.getAutorisation_id()<4) contenu.add(SuperCivil);
         SuperCivil.setBounds(180,110 ,200 ,20 );
         SuperCivil.addActionListener(new ActionListener() {
             @Override
@@ -48,7 +53,7 @@ public class Accueil extends JFrame{
         });
 
         rapport = new JButton("Rapport");
-        contenu.add(rapport);
+        if (autorisation.getAutorisation_id()<4) contenu.add(rapport);
         rapport.setBounds(390,110 ,80 ,20 );
         rapport.addActionListener(new ActionListener() {
             @Override
@@ -58,7 +63,7 @@ public class Accueil extends JFrame{
         });
 
         grilleIncidents = new JButton("Liste des incidents");
-        contenu.add(grilleIncidents);
+        if (autorisation.getAutorisation_id()<4) contenu.add(grilleIncidents);
         grilleIncidents.setBounds(480, 110, 150, 20);
         grilleIncidents.addActionListener(new ActionListener() {
             @Override
@@ -68,7 +73,7 @@ public class Accueil extends JFrame{
         });
 
         JButton listePersonnes = new JButton("Liste des personnes");
-        contenu.add(listePersonnes);
+        if (autorisation.getAutorisation_id()==1) contenu.add(listePersonnes);
         listePersonnes.setBounds(640, 110, 150, 20);
         listePersonnes.addActionListener(new ActionListener() {
             @Override

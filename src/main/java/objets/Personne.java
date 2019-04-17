@@ -5,10 +5,17 @@ import util.Constants;
 import util.LogUtils;
 
 import javax.swing.*;
+import mysqlUtil.SqlConnexion;
+import util.LogUtils;
+
+import javax.swing.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -75,6 +82,18 @@ public class Personne {
         this.personne_id = BigInteger.valueOf(id);
         this.prenom = prenom;
         this.nom = nom;
+    }
+
+    public Personne(BigInteger id, String nom, String prenom, String nationalite, int nbIncidentsDeclares, int nbIncidentsLies, Date creation_date, boolean isCivil, String commentaire) {
+        this.personne_id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.nationalite = nationalite;
+        this.nbIncidentsLies = nbIncidentsLies;
+        this.nbIncidentsDeclares = nbIncidentsDeclares;
+        this.commentaire = commentaire;
+        this.creation_date = creation_date;
+        this.isCivil = isCivil;
     }
 
     public BigInteger getPersonne_id() {
@@ -146,28 +165,25 @@ public class Personne {
         Autorisation autorisation = null;
         try
         {
-            if (login != null && mdp != null)
+            Statement statement = SqlConnexion.connection.createStatement();
+            String sql = "select * from autorisations_personnes where PERSONNE_ID='"+personne_id+"'";
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next())
             {
-                Statement statement = SqlConnexion.connection.createStatement();
-                String sql = "select * from autorisations_personnes where PERSONNE_ID='"+personne_id+"'";
-                ResultSet rs = statement.executeQuery(sql);
+                String query = "select * from autorisations where AUTORISATION_ID='"+rs.getInt("AUTORISATION_ID")+"'";
+                ResultSet rs2 = statement.executeQuery(query);
                 if (rs.next())
                 {
-                    String query = "select * from autorisations where AUTORISATION_ID='"+rs.getInt("AUTORISATION_ID")+"'";
-                    ResultSet rs2 = statement.executeQuery(query);
-                    if (rs.next())
-                    {
-                        autorisation = new Autorisation(rs2.getInt("AUTORISATION_ID"), rs2.getString("LIBELLE"));
-                    }
-                    else
-                    {
-                        JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur de communication", JOptionPane.ERROR_MESSAGE);
-                    }
+                    autorisation = new Autorisation(rs2.getInt("AUTORISATION_ID"), rs2.getString("LIBELLE"));
                 }
                 else
                 {
                     JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur de communication", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur de communication", JOptionPane.ERROR_MESSAGE);
             }
         }
         catch (SQLException err)
@@ -176,5 +192,36 @@ public class Personne {
             JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
         return autorisation;
+    }
+
+    public Boolean supprimer() {
+        Boolean supprime = false;
+        String query = "DELETE FROM PERSONNES WHERE PERSONNE_ID = ?;";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = SqlConnexion.connection.prepareStatement(query);
+            stmt.setBigDecimal(1, new BigDecimal(personne_id));
+            stmt.execute();
+            supprime = true;
+        } catch (SQLException e) {
+            LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
+            JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return supprime;
+    }
+
+    public void declarerDecedee() {
+        String query = "UPDATE PERSONNES SET DATE_DECES = CURRENT_DATE WHERE PERSONNE_ID = ?;";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = SqlConnexion.connection.prepareStatement(query);
+            stmt.setBigDecimal(1, new BigDecimal(personne_id));
+            stmt.execute();
+        } catch (SQLException e) {
+            LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
+            JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

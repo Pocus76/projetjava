@@ -224,4 +224,10 @@ public class Personne {
             JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return nom+" "+prenom;
+    }
 }

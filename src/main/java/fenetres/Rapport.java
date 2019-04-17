@@ -1,7 +1,6 @@
 package fenetres;
 
         import mysqlUtil.SqlConnexion;
-        import objets.Rapports;
 
         import util.LogUtils;
 

@@ -118,7 +118,7 @@ public class Incident extends JFrame {
         }
         SuperCivil[] data = new SuperCivil[storeVilains.size()];
         storeVilains.toArray(data);
-        listVilains = new JList<SuperCivil>(data);
+        listVilains = new JList<>(data);
         listVilains.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane scrollPane1 = new JScrollPane();
         scrollPane1.setViewportView(listVilains);

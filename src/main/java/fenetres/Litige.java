@@ -30,10 +30,10 @@ public class Litige extends JFrame {
 
         //Les titres des colonnes
         String  table[] = {"Mission", "Message", "Dégât","Intérêt"};
-        JTable tableau = new JTable(data, title);
+        //JTable tableau = new JTable(data, title);
         //Nous ajoutons notre tableau à notre contentPane dans un scroll
         //Sinon les titres des colonnes ne s'afficheront pas !
-        this.getContentPane().add(new JScrollPane(tableau));
+        //this.getContentPane().add(new JScrollPane(tableau));
 
 
         this.setVisible(true);

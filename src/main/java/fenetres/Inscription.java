@@ -287,7 +287,7 @@ public class Inscription extends JFrame {
                 JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner un mot de passe valide", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else if (email.length() == 0 || !email.matches(Regex.EMAIL_PATTERN)) {
                 JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner un email valide", "Erreur", JOptionPane.ERROR_MESSAGE);
-            } else if (!matcher.matches()) {
+            } else if (!telephone.equals("") && !matcher.matches()) {
                 JOptionPane.showMessageDialog(Inscription.this, "Veuillez renseigner un téléphone valide", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else {
                 Administratif adrPersonne = new Administratif(adresse, cp, ville, pays, planete, email, telephone);

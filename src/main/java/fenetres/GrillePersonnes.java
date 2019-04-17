@@ -23,7 +23,7 @@ import java.util.Date;
 
 public class GrillePersonnes extends JFrame {
     ArrayList<Personne> personnes = new ArrayList<Personne>();
-    private int nbColumns = 10;
+    private int nbColumns = 11;
     private ArrayList<JLabel> headers = new ArrayList<JLabel>();
     private SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
 
@@ -46,7 +46,7 @@ public class GrillePersonnes extends JFrame {
         JPanel bbar = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton retour = new JButton("Retour");
         bbar.add(retour);
-        retour.setBounds(400 , 300, 100, 20);
+        retour.setBounds(400, 300, 100, 20);
         retour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +82,17 @@ public class GrillePersonnes extends JFrame {
                         }
                     });
                 } else if (j == 8) {
+                    JButton  modifMembres = new JButton("X");
+                    panel.add(modifMembres, c);
+                    modifMembres.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if (!personne.getCivil()) {
+                                new GereMembres(personne.getPersonne_id());
+                            }
+                        }
+                    });
+                } else if (j == 9) {
                     JButton deceder = new JButton("X");
                     panel.add(deceder, c);
                     deceder.addActionListener(new ActionListener() {
@@ -94,7 +105,7 @@ public class GrillePersonnes extends JFrame {
                             }
                         }
                     });
-                } else if (j == 9) {
+                } else if (j == 10) {
                     JButton supprimerPersonne = new JButton("X");
                     panel.add(supprimerPersonne, c);
                     supprimerPersonne.addActionListener(new ActionListener() {
@@ -125,7 +136,6 @@ public class GrillePersonnes extends JFrame {
                 }
             }
         }
-
 
 
         contenu.add(panel, BorderLayout.PAGE_START);
@@ -167,6 +177,7 @@ public class GrillePersonnes extends JFrame {
         headers.add(new JLabel("Incidents liés"));
         headers.add(new JLabel("Commentaire"));
         headers.add(new JLabel("Modifier autorisations"));
+        headers.add(new JLabel("Modifier les membres"));
         headers.add(new JLabel("Déclarer comme décédée"));
         headers.add(new JLabel("Supprimer"));
     }
@@ -207,6 +218,7 @@ public class GrillePersonnes extends JFrame {
             case 7:
             case 8:
             case 9:
+            case 10:
                 return 10;
 
         }

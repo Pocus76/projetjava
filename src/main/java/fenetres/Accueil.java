@@ -19,7 +19,7 @@ public class Accueil extends JFrame{
 
         super();
         this.setTitle("The S.H.I.E.L.D.");
-        this.setSize(new Dimension(900,200));
+        this.setSize(new Dimension(1000,200));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setUndecorated(true);
@@ -47,7 +47,7 @@ public class Accueil extends JFrame{
             }
         });
 
-        rapport = new JButton("Rapport");
+        /*rapport = new JButton("Rapport");
         contenu.add(rapport);
         rapport.setBounds(390,110 ,80 ,20 );
         rapport.addActionListener(new ActionListener() {
@@ -55,7 +55,7 @@ public class Accueil extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 //new Rapport();
             }
-        });
+        });*/
 
         grilleIncidents = new JButton("Liste des incidents");
         contenu.add(grilleIncidents);
@@ -74,6 +74,16 @@ public class Accueil extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new GrillePersonnes();
+            }
+        });
+
+        JButton listeMissions = new JButton("Liste des missions");
+        contenu.add(listeMissions);
+        listeMissions.setBounds(800, 110, 150, 20);
+        listeMissions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GrilleMissions();
             }
         });
 

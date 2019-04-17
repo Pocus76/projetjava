@@ -29,8 +29,7 @@ public class Mission {
     public Mission(BigInteger mission_id, Incident incident, List<SuperCivil> heros,
                    String nature, String titre,
                    String description, Date dateDebut,
-                   Date dateFin, int gravite, int urgence)
-    {
+                   Date dateFin, int gravite, int urgence) {
         this.mission_id = mission_id;
         this.incident = incident;
         this.heros = heros;
@@ -46,11 +45,37 @@ public class Mission {
     public Mission(Incident incident, List<SuperCivil> heros,
                    String nature, String titre,
                    String description, Date dateDebut,
-                   Date dateFin, int gravite, int urgence)
-    {
+                   Date dateFin, int gravite, int urgence) {
         this.mission_id = mission_id;
         this.incident = incident;
         this.heros = heros;
+        this.nature = nature;
+        this.titre = titre;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.gravite = gravite;
+        this.urgence = urgence;
+    }
+
+    public Mission(Incident incident, List<SuperCivil> heros,
+                   String nature, String titre,
+                   String description, Date dateDebut, int gravite, int urgence) {
+        this.mission_id = mission_id;
+        this.incident = incident;
+        this.heros = heros;
+        this.nature = nature;
+        this.titre = titre;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.gravite = gravite;
+        this.urgence = urgence;
+    }
+
+    public Mission(BigInteger mission_id, Incident incident, String nature, String titre, String description, Date dateDebut, Date dateFin, int gravite, int urgence) {
+        this.mission_id = mission_id;
+        this.incident = incident;
         this.nature = nature;
         this.titre = titre;
         this.description = description;
@@ -100,11 +125,10 @@ public class Mission {
         return urgence;
     }
 
-    public Boolean insertIntoDatabase()
-    {
+    public Boolean insertIntoDatabase() {
         boolean inserted = false;
 
-        String query = "INSERT INTO missions (INCIDENT_ID, NATURE, TITRE, DESCRIPTION, DATE_DEBUT, DATE_FIN, GRAVITE, URGENCE) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO missions (INCIDENT_ID, NATURE, TITRE, DESCRIPTION, DATE_DEBUT, GRAVITE, URGENCE) VALUES (?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement stmt = null;
 
         try {
@@ -114,14 +138,11 @@ public class Mission {
             stmt.setString(3, titre);
             stmt.setString(4, description);
             stmt.setDate(5, new java.sql.Date(dateDebut.getTime()));
-            stmt.setDate(6, new java.sql.Date(dateFin.getTime()));
-            stmt.setInt(7, gravite);
-            stmt.setInt(8, urgence);
+            stmt.setInt(6, gravite);
+            stmt.setInt(7, urgence);
             stmt.execute();
             inserted = true;
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             LogUtils.logErreur(this.getClass().getSimpleName(), e.getMessage());
             JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
         }

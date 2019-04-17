@@ -23,7 +23,7 @@ import java.util.Date;
 
 public class GrillePersonnes extends JFrame {
     ArrayList<Personne> personnes = new ArrayList<Personne>();
-    private int nbColumns = 9;
+    private int nbColumns = 10;
     private ArrayList<JLabel> headers = new ArrayList<JLabel>();
     private SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
 
@@ -60,6 +60,7 @@ public class GrillePersonnes extends JFrame {
 
                 c.gridy = i + 1;
 
+                System.out.println(j);
                 if (j == 7) {
                     JButton modifAutorisations = new JButton("X");
                     panel.add(modifAutorisations, c);
@@ -70,6 +71,19 @@ public class GrillePersonnes extends JFrame {
                         }
                     });
                 } else if (j == 8) {
+                    JButton deceder = new JButton("X");
+                    panel.add(deceder, c);
+                    deceder.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            Object[] options = {"OUI", "NON"};
+                            int n = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir déclarer cette personne comme décédée", "Confimation", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+                            if (n == 0) {
+                                personne.declarerDecedee();
+                            }
+                        }
+                    });
+                } else if (j == 9) {
                     JButton supprimerPersonne = new JButton("X");
                     panel.add(supprimerPersonne, c);
                     supprimerPersonne.addActionListener(new ActionListener() {
@@ -141,6 +155,7 @@ public class GrillePersonnes extends JFrame {
         headers.add(new JLabel("Incidents liés"));
         headers.add(new JLabel("Commentaire"));
         headers.add(new JLabel("Modifier autorisations"));
+        headers.add(new JLabel("Déclarer comme décédé"));
         headers.add(new JLabel("Supprimer"));
     }
 
@@ -167,18 +182,19 @@ public class GrillePersonnes extends JFrame {
     private int getWidth(int column) {
         switch (column) {
             case 0:
-                return 10;
+                return 5;
             case 1:
                 return 20;
             case 2:
             case 3:
             case 4:
             case 5:
-                return 10;
+                return 5;
             case 6:
                 return 50;
             case 7:
             case 8:
+            case 9:
                 return 10;
 
         }

@@ -74,6 +74,7 @@ public class GereAutorisations extends JFrame
                 {
                     GereAutorisations.this.dispatchEvent(new WindowEvent(GereAutorisations.this, WindowEvent.WINDOW_CLOSING));
                     JOptionPane.showMessageDialog(new JFrame(),"Autorisations mises à jour", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    new GrillePersonnes();
                 }
                 else
                 {
@@ -88,6 +89,7 @@ public class GereAutorisations extends JFrame
         annuler.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 GereAutorisations.this.dispatchEvent(new WindowEvent(GereAutorisations.this, WindowEvent.WINDOW_CLOSING));
+                new GrillePersonnes();
             }
         });
 

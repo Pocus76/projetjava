@@ -60,14 +60,14 @@ public class GrillePersonnes extends JFrame {
 
                 c.gridy = i + 1;
 
-                System.out.println(j);
                 if (j == 7) {
                     JButton modifAutorisations = new JButton("X");
                     panel.add(modifAutorisations, c);
                     modifAutorisations.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            // TODO LIER à l'écran de visualisation
+                            new GereAutorisations(personne.getPersonne_id());
+                            GrillePersonnes.this.dispatchEvent(new WindowEvent(GrillePersonnes.this, WindowEvent.WINDOW_CLOSING));
                         }
                     });
                 } else if (j == 8) {
@@ -155,7 +155,7 @@ public class GrillePersonnes extends JFrame {
         headers.add(new JLabel("Incidents liés"));
         headers.add(new JLabel("Commentaire"));
         headers.add(new JLabel("Modifier autorisations"));
-        headers.add(new JLabel("Déclarer comme décédé"));
+        headers.add(new JLabel("Déclarer comme décédée"));
         headers.add(new JLabel("Supprimer"));
     }
 

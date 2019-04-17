@@ -1,4 +1,4 @@
-import fenetres.Accueil;
+import fenetres.Authentification;
 import mysqlUtil.SqlConnexion;
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -15,6 +15,6 @@ public class ActivitePrincipale
     public static void main(String[] args)
     {
         SqlConnexion connexion = new SqlConnexion();
-        new Accueil();
+        new Authentification();
     }
 }

@@ -179,7 +179,15 @@ public class Mission extends JFrame
                     return;
                 }
                 objets.Mission mission = new objets.Mission(incident, listHeros.getSelectedValuesList(), fieldNaturesMission.getText(), fieldTitre.getText(), fieldComplements.getText(), DateUtil.toDate(fieldDateDebut.getText()), Integer.parseInt(((Item) listeGravites.getSelectedItem()).getId()), AvengersToolkit.boolToInt(checkUrgence.isSelected()));
-                mission.insertIntoDatabase();
+                if (mission.insertIntoDatabase())
+                {
+                    JOptionPane.showMessageDialog(new JFrame(), "Mission ajoutée", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    Mission.this.dispatchEvent(new WindowEvent(Mission.this, WindowEvent.WINDOW_CLOSING));
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(new JFrame(), "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

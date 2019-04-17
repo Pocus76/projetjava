@@ -104,11 +104,11 @@ public class DeclarerCrise extends JFrame
                                 sPersonnes+=personne.getNom()+" "+personne.getPrenom()+", ";
                             }
                             sPersonnes = sPersonnes.substring(0, sPersonnes.lastIndexOf(","));
-                            message+="Les personnes "+sPersonnes+" sont concern&eacute;s.<br/>";
+                            message+="Les personnes "+sPersonnes+" sont concern&eacute;es.<br/>";
                         }
                         else
                         {
-                            message+="La personne "+crise.getPersonnes().get(0).getNom()+" "+crise.getPersonnes().get(0).getPrenom()+" est concern&eacute;.<br/>";
+                            message+="La personne "+crise.getPersonnes().get(0).getNom()+" "+crise.getPersonnes().get(0).getPrenom()+" est concern&eacute;e.<br/>";
                         }
                     }
                     new EnvoiMail("Notification de crise", message);

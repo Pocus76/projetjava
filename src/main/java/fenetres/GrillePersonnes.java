@@ -38,10 +38,21 @@ public class GrillePersonnes extends JFrame {
         Container contenu = this.getContentPane();
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(153, 86, 10, 10)));
         contenu.setBackground(Color.white);
+        contenu.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);
         GridBagConstraints c = new GridBagConstraints();
+        JPanel bbar = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton retour = new JButton("Retour");
+        bbar.add(retour);
+        retour.setBounds(400 , 300, 100, 20);
+        retour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GrillePersonnes.this.dispatchEvent(new WindowEvent(GrillePersonnes.this, WindowEvent.WINDOW_CLOSING));
+            }
+        });
 
         c.gridwidth = 1;
         c.gridheight = 1;
@@ -116,8 +127,9 @@ public class GrillePersonnes extends JFrame {
         }
 
 
-        contenu.add(panel);
-        panel.setVisible(true);
+
+        contenu.add(panel, BorderLayout.PAGE_START);
+        contenu.add(bbar, BorderLayout.SOUTH);
         this.setVisible(true);
     }
 

@@ -138,6 +138,8 @@ public class Incident extends JFrame {
                 administratif.insertIntoDatabase();
                 objets.Incident incident = new objets.Incident(administratif, listVilains.getSelectedValuesList(), fieldCommentaire.getText());
                 incident.insertIntoDatabase();
+                JOptionPane.showMessageDialog(new JFrame(),"Incident ajouté", "Information", JOptionPane.INFORMATION_MESSAGE);
+                Incident.this.dispatchEvent(new WindowEvent(Incident.this, WindowEvent.WINDOW_CLOSING));
             }
         });
 

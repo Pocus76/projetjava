@@ -83,6 +83,7 @@ public class Accueil extends JFrame{
         });
 
         JButton listeMissions = new JButton("Liste des missions");
+        if (autorisation.getAutorisation_id() < 2) contenu.add(listePersonnes);
         contenu.add(listeMissions);
         listeMissions.setBounds(800, 110, 150, 20);
         listeMissions.addActionListener(new ActionListener() {

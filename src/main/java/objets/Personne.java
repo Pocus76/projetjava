@@ -165,28 +165,25 @@ public class Personne {
         Autorisation autorisation = null;
         try
         {
-            if (login != null && mdp != null)
+            Statement statement = SqlConnexion.connection.createStatement();
+            String sql = "select * from autorisations_personnes where PERSONNE_ID='"+personne_id+"'";
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next())
             {
-                Statement statement = SqlConnexion.connection.createStatement();
-                String sql = "select * from autorisations_personnes where PERSONNE_ID='"+personne_id+"'";
-                ResultSet rs = statement.executeQuery(sql);
+                String query = "select * from autorisations where AUTORISATION_ID='"+rs.getInt("AUTORISATION_ID")+"'";
+                ResultSet rs2 = statement.executeQuery(query);
                 if (rs.next())
                 {
-                    String query = "select * from autorisations where AUTORISATION_ID='"+rs.getInt("AUTORISATION_ID")+"'";
-                    ResultSet rs2 = statement.executeQuery(query);
-                    if (rs.next())
-                    {
-                        autorisation = new Autorisation(rs2.getInt("AUTORISATION_ID"), rs2.getString("LIBELLE"));
-                    }
-                    else
-                    {
-                        JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur de communication", JOptionPane.ERROR_MESSAGE);
-                    }
+                    autorisation = new Autorisation(rs2.getInt("AUTORISATION_ID"), rs2.getString("LIBELLE"));
                 }
                 else
                 {
                     JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur de communication", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(new JFrame(),"Une erreur s'est produite", "Erreur de communication", JOptionPane.ERROR_MESSAGE);
             }
         }
         catch (SQLException err)

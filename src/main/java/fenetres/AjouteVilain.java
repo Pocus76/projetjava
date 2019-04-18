@@ -93,14 +93,7 @@ public class AjouteVilain extends JFrame
         contenu.add(score);
         score.setBounds(20, 160, 100, 20);
 
-        NumberFormat format = NumberFormat.getInstance();
-        NumberFormatter formatter = new NumberFormatter(format);
-        formatter.setValueClass(Float.class);
-        formatter.setMinimum(0);
-        formatter.setMaximum(Integer.MAX_VALUE);
-        formatter.setAllowsInvalid(false);
-        formatter.setCommitsOnValidEdit(true);
-        score1 = new JFormattedTextField(formatter);
+        score1 = new JTextField();
         contenu.add(score1);
         score1.setBounds(150, 160, 150, 20);
 

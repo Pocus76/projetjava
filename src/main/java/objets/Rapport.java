@@ -46,6 +46,13 @@ public class Rapport {
         this.succes = succes;
     }
 
+    public Rapport(BigInteger rapport_id, String description, Boolean succes)
+    {
+        this.rapport_id = rapport_id;
+        this.description = description;
+        this.succes = succes;
+    }
+
     public BigInteger getRapport_id() {
         return rapport_id;
     }

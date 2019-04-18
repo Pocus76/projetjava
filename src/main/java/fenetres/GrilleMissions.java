@@ -36,10 +36,12 @@ public class GrilleMissions extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setUndecorated(true);
+
         Container contenu = this.getContentPane();
-        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(153, 86, 10, 10)));
+        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(0, 58, 153)));
         contenu.setBackground(Color.white);
         contenu.setLayout(new BorderLayout());
+        
         JPanel panel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
         panel.setLayout(layout);

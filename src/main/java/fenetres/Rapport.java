@@ -39,7 +39,7 @@ public class Rapport extends JFrame {
         this.setAlwaysOnTop(true);
 
         JScrollPane jScrollPane = new JScrollPane(new Panel());
-        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(153, 86, 0)));
+        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(0, 58, 153)));
         jScrollPane.setBackground(Color.white);
         jScrollPane.setLayout(null);
 

@@ -39,6 +39,8 @@ public class DeclarerCrise extends JFrame
         this.setUndecorated(true);
 
         Container contenu = this.getContentPane();
+        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(0, 58, 153)));
+        contenu.setBackground(Color.white);
         contenu.setLayout(null);
 
         mission = new JLabel("Mission");

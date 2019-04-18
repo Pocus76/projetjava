@@ -16,8 +16,9 @@ public class VisualiserVilains extends JFrame {
         this.setSize(new Dimension(1300, 700));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+
         Container contenu = this.getContentPane();
-        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(153, 86, 10, 10)));
+        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(0, 58, 153)));
         contenu.setBackground(Color.white);
 
 

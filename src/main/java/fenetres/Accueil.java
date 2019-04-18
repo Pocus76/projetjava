@@ -24,7 +24,7 @@ public class Accueil extends JFrame{
 
         super();
         this.setTitle("The S.H.I.E.L.D.");
-        this.setSize(new Dimension(1150,200));
+        this.setSize(new Dimension(1350,200));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setUndecorated(true);
@@ -60,7 +60,7 @@ public class Accueil extends JFrame{
         rapport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //new Rapport();
+                new Rapport();
             }
         });
 
@@ -101,6 +101,17 @@ public class Accueil extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new DeclarerCrise();
+            }
+        });
+
+        JButton gererEntreprise = new JButton("Gérer les membres de mon organisation");
+        System.out.println(Constants.utilisateurConnecte.getCivil());
+        if(!Constants.utilisateurConnecte.getCivil()) contenu.add(gererEntreprise);
+        gererEntreprise.setBounds(1150, 110, 150, 20);
+        gererEntreprise.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GereMembres(Constants.utilisateurConnecte.getPersonne_id());
             }
         });
 

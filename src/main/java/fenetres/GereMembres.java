@@ -30,6 +30,11 @@ public class GereMembres extends JFrame {
     public GereMembres(BigInteger personne_id) {
         super();
         entreprise_id = personne_id;
+        doGrid();
+        this.setVisible(true);
+    }
+
+    private void doGrid() {
         getHeaders();
         getCandidats();
         getMembres();
@@ -70,16 +75,18 @@ public class GereMembres extends JFrame {
         c2.fill = GridBagConstraints.HORIZONTAL;
         c2.anchor = GridBagConstraints.FIRST_LINE_START;
 
+        for (int h = 0; h < nbColumns; h += 1) {
+            c.gridy = 0;
+            c.gridx = h;
+            c.weightx = getWidth(h);
+            panel.add(headers.get(h), c);
+        }
+
         for (int i = 0; i < membres.size(); i += 1) { // Lignes
             Personne personne = membres.get(i);
             for (int j = 0; j < nbColumns; j += 1) { // Colonnes
                 c.gridx = j;
                 c.weightx = getWidth(j);
-                if (i == 0) {
-                    c.gridy = 0;
-                    panel.add(headers.get(j), c);
-                }
-
                 c.gridy = i + 1;
 
                 if (j == 1) {
@@ -88,17 +95,18 @@ public class GereMembres extends JFrame {
                     desaffecter.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            Component[] componentList = panel.getComponents();
-                            GridBagConstraints buttonConstraints = layout.getConstraints(desaffecter);
-                            for (Component compo : componentList) {
-                                GridBagConstraints gbc = layout.getConstraints(compo);
-                                if (gbc.gridy == buttonConstraints.gridy) {
-                                    panel.remove(compo);
-                                }
+                            try {
+                                String query = "DELETE FROM MEMBRES_ORGANISATIONS WHERE  PERSONNE_ID = ? AND PER_PERSONNE_ID = ?";
+                                PreparedStatement stmt = SqlConnexion.connection.prepareStatement(query);
+                                stmt.setBigDecimal(1, new BigDecimal(entreprise_id));
+                                stmt.setBigDecimal(2, new BigDecimal(personne.getPersonne_id()));
+                                stmt.execute();
+                                new GereMembres(entreprise_id);
+                                GereMembres.this.dispatchEvent(new WindowEvent(GereMembres.this, WindowEvent.WINDOW_CLOSING));
+                            } catch (SQLException err) {
+                                LogUtils.logErreur(this.getClass().getSimpleName(), err.getMessage());
+                                JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
                             }
-                            membres.remove(personne);
-                            panel.revalidate();
-                            panel.repaint();
                         }
                     });
                 } else {
@@ -130,17 +138,21 @@ public class GereMembres extends JFrame {
                     affecter.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            Component[] componentList = panelCandidats.getComponents();
-                            GridBagConstraints buttonConstraints = layoutCandidats.getConstraints(affecter);
-                            for (Component compo : componentList) {
-                                GridBagConstraints gbc = layoutCandidats.getConstraints(compo);
-                                if (gbc.gridy == buttonConstraints.gridy) {
-                                    panelCandidats.remove(compo);
-                                }
+                            try {
+                                Object[] options = {"OUI", "NON"};
+                                int n = JOptionPane.showOptionDialog(null, "Est-ce un des dirigeants ?", "Confimation", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+                                String query = "INSERT INTO MEMBRES_ORGANISATIONS (PERSONNE_ID, PER_PERSONNE_ID, IS_DIRIGEANT) VALUES (?, ?, ?)";
+                                PreparedStatement stmt = SqlConnexion.connection.prepareStatement(query);
+                                stmt.setBigDecimal(1, new BigDecimal(entreprise_id));
+                                stmt.setBigDecimal(2, new BigDecimal(candidat.getPersonne_id()));
+                                stmt.setBoolean(3, n == 0 ? true : false);
+                                stmt.execute();
+                                new GereMembres(entreprise_id);
+                                GereMembres.this.dispatchEvent(new WindowEvent(GereMembres.this, WindowEvent.WINDOW_CLOSING));
+                            } catch (SQLException err) {
+                                LogUtils.logErreur(this.getClass().getSimpleName(), err.getMessage());
+                                JOptionPane.showMessageDialog(null, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE);
                             }
-                            candidats.remove(candidat);
-                            panelCandidats.revalidate();
-                            panelCandidats.repaint();
                         }
                     });
                 } else {
@@ -152,7 +164,6 @@ public class GereMembres extends JFrame {
         contenu.add(panel, BorderLayout.PAGE_START);
         contenu.add(panelCandidats, BorderLayout.CENTER);
         contenu.add(bbar, BorderLayout.SOUTH);
-        this.setVisible(true);
     }
 
     private void getMembres() {

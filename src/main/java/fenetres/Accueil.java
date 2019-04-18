@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-public class Accueil extends JFrame{
+public class Accueil extends JFrame {
     private JButton compte;
     private JButton incident;
     private JButton SuperCivil;
@@ -20,14 +20,11 @@ public class Accueil extends JFrame{
     private JButton grilleIncidents;
     private JButton btnCrise;
 
-    public Accueil(){
+    public Accueil() {
 
         super();
         this.setTitle("The S.H.I.E.L.D.");
-        this.setSize(new Dimension(1350,200));
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setUndecorated(true);
+        int x = 20;
 
         Autorisation autorisation = Requetes.getAutorisation(Constants.utilisateurConnecte.getPersonne_id());
 
@@ -36,17 +33,23 @@ public class Accueil extends JFrame{
 
         incident = new JButton("Nouvel incident");
         contenu.add(incident);
-        incident.setBounds(20,110 ,150 ,20 );
+        incident.setBounds(x, 110, 150, 20);
         incident.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              new Incident();
+                new Incident();
             }
         });
 
+        x += 150 + 10;
+
+
         SuperCivil = new JButton("Ajouter un super civil");
-        if (autorisation.getAutorisation_id()<4) contenu.add(SuperCivil);
-        SuperCivil.setBounds(180,110 ,200 ,20 );
+        SuperCivil.setBounds(x, 110, 200, 20);
+        if (autorisation.getAutorisation_id() < 4) {
+            contenu.add(SuperCivil);
+            x += 200 + 10;
+        }
         SuperCivil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -55,8 +58,11 @@ public class Accueil extends JFrame{
         });
 
         rapport = new JButton("Rapport");
-        if (autorisation.getAutorisation_id()<4) contenu.add(rapport);
-        rapport.setBounds(390,110 ,80 ,20 );
+        rapport.setBounds(x, 110, 80, 20);
+        if (autorisation.getAutorisation_id() < 4) {
+            contenu.add(rapport);
+            x += 80 + 10;
+        }
         rapport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,8 +71,11 @@ public class Accueil extends JFrame{
         });
 
         grilleIncidents = new JButton("Liste des incidents");
-        if (autorisation.getAutorisation_id()<4) contenu.add(grilleIncidents);
-        grilleIncidents.setBounds(480, 110, 150, 20);
+        grilleIncidents.setBounds(x, 110, 150, 20);
+        if (autorisation.getAutorisation_id() < 4) {
+            contenu.add(grilleIncidents);
+            x += 150 + 10;
+        }
         grilleIncidents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,8 +84,11 @@ public class Accueil extends JFrame{
         });
 
         JButton listePersonnes = new JButton("Liste des personnes");
-        if (autorisation.getAutorisation_id()==1) contenu.add(listePersonnes);
-        listePersonnes.setBounds(640, 110, 150, 20);
+        listePersonnes.setBounds(x, 110, 150, 20);
+        if (autorisation.getAutorisation_id() == 1) {
+            contenu.add(listePersonnes);
+            x += 150 + 10;
+        }
         listePersonnes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,8 +97,11 @@ public class Accueil extends JFrame{
         });
 
         JButton listeMissions = new JButton("Liste des missions");
-        if (autorisation.getAutorisation_id() < 2) contenu.add(listeMissions);
-        listeMissions.setBounds(800, 110, 150, 20);
+        listeMissions.setBounds(x, 110, 150, 20);
+        if (autorisation.getAutorisation_id() < 2) {
+            contenu.add(listeMissions);
+            x += 150 + 10;
+        }
         listeMissions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,8 +110,11 @@ public class Accueil extends JFrame{
         });
 
         btnCrise = new JButton("Déclarer une crise");
-        contenu.add(btnCrise);
-        btnCrise.setBounds(960,110 ,150 ,20 );
+        btnCrise.setBounds(x, 110, 150, 20);
+        if (autorisation.getAutorisation_id() < 2) {
+            contenu.add(btnCrise);
+            x += 150 + 10;
+        }
         btnCrise.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -106,8 +124,11 @@ public class Accueil extends JFrame{
 
         JButton gererEntreprise = new JButton("Gérer les membres de mon organisation");
         System.out.println(Constants.utilisateurConnecte.getCivil());
-        if(!Constants.utilisateurConnecte.getCivil()) contenu.add(gererEntreprise);
-        gererEntreprise.setBounds(1150, 110, 150, 20);
+        gererEntreprise.setBounds(x, 110, 300, 20);
+        if (!Constants.utilisateurConnecte.getCivil()) {
+            contenu.add(gererEntreprise);
+            x += 300 + 10;
+        }
         gererEntreprise.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,7 +138,7 @@ public class Accueil extends JFrame{
 
         JButton deconnexion = new JButton("Deconnexion");
         contenu.add(deconnexion);
-        deconnexion.setBounds(400, 150, 150, 20);
+        deconnexion.setBounds(20, 150, 150, 20);
         deconnexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,6 +148,10 @@ public class Accueil extends JFrame{
             }
         });
 
+        this.setSize(new Dimension(x + 10, 200));
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setUndecorated(true);
         this.setVisible(true);
 
     }

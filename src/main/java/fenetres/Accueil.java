@@ -18,8 +18,10 @@ public class Accueil extends JFrame {
     private JButton SuperCivil;
     private JButton mission;
     private JButton rapport;
+    private JButton btnListeRapports;
     private JButton grilleIncidents;
     private JButton btnCrise;
+    private JButton btnListeCrises;
 
     public Accueil() {
 
@@ -70,6 +72,19 @@ public class Accueil extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Rapport();
+            }
+        });
+
+        btnListeRapports = new JButton("Liste des rapports");
+        btnListeRapports.setBounds(x, 110, 150, 20);
+        if (autorisation.getAutorisation_id() < 4) {
+            contenu.add(btnListeRapports);
+            x += 150 + 10;
+        }
+        btnListeRapports.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GrilleRapports();
             }
         });
 
@@ -125,6 +140,21 @@ public class Accueil extends JFrame {
             }
         });
 
+        btnListeCrises = new JButton("Liste des crises");
+        btnListeCrises.setBounds(x,110 ,150 ,20 );
+        if (autorisation.getAutorisation_id() < 2) {
+            contenu.add(btnListeCrises);
+            x += 150 + 10;
+        }
+        btnListeCrises.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                new GrilleCrises();
+            }
+        });
+
         JButton gererEntreprise = new JButton("Gérer les membres de mon organisation");
         System.out.println(Constants.utilisateurConnecte.getCivil());
         gererEntreprise.setBounds(x, 110, 300, 20);
@@ -151,7 +181,7 @@ public class Accueil extends JFrame {
             }
         });
 
-        this.setSize(new Dimension(x + 10, 200));
+        this.setSize(new Dimension(x + 20, 200));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setUndecorated(true);
